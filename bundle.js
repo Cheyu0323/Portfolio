@@ -1,0 +1,1 @@
+(()=>{const e=({elem:e,className:c})=>{e.classList.toggle(c)},c=document.querySelector(".hamburger"),a=document.querySelector(".cover"),l=document.querySelector("body");c.addEventListener("click",(()=>{e({elem:c,className:"active"}),e({elem:a,className:"active"}),e({elem:l,className:"active"})}))})();
