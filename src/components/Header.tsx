@@ -6,6 +6,7 @@ import { setHover } from "../slices/cursor";
 import { setClick } from "../slices/menu";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
+import { useNavigate } from "react-router-dom";
 
 const Type = styled(Typography)`
     && {
@@ -122,7 +123,8 @@ const MenuBtn: React.FC<menuBtn> = ({ onMouseOver, onMouseOut }) => {
     );
 };
 
-const Header = () => {
+const Header: React.FC = () => {
+    const n = useNavigate();
     const dispatch = useAppDispatch();
     const handleMouseOver = () => {
         dispatch(setHover(true));
@@ -146,7 +148,13 @@ const Header = () => {
             }}
         >
             <Box>
-                <Type onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+                <Type
+                    onMouseOver={handleMouseOver}
+                    onMouseOut={handleMouseOut}
+                    onClick={() => {
+                        n("/Portfolio/");
+                    }}
+                >
                     CHEYU
                 </Type>
             </Box>

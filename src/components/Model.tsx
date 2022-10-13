@@ -1,9 +1,10 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, Suspense } from "react";
 import { Canvas, useFrame, useLoader, ThreeEvent } from "@react-three/fiber";
 import { Mesh } from "three";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { useAppSelector } from "../hooks";
 import gsap from "gsap";
+import styled from "styled-components";
 
 const Geometry = () => {
     const menuReducers = useAppSelector((state) => state.menuReducers);
@@ -278,19 +279,40 @@ const Geometry = () => {
     );
 };
 
-const Model = () => {
+const LoadingPage = styled.div`
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border:1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    z-index: 20;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+`
+
+const Model:React.FC = () => {
     return (
-        <Canvas style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}>
-            <ambientLight intensity={0.2} />
-            <spotLight
-                position={[10, 10, 10]}
-                angle={1}
-                penumbra={0.5}
-                intensity={2}
-            />
-            <pointLight position={[-10, -10, -10]} />
-            <Geometry />
-        </Canvas>
+        <Suspense fallback={<LoadingPage >Loading...</LoadingPage>}>
+            <Canvas
+                style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}
+            >
+                <ambientLight intensity={0.2} />
+                <spotLight
+                    position={[10, 10, 10]}
+                    angle={1}
+                    penumbra={0.5}
+                    intensity={2}
+                />
+                <pointLight position={[-10, -10, -10]} />
+                <Geometry />
+            </Canvas>
+        </Suspense>
     );
 };
 
