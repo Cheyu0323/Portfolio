@@ -196,6 +196,7 @@ const WorkItem = () => {
                     onMouseOut={handleMouseOut}
                     onClick={() => {
                         n("/Portfolio/works");
+                        handleMouseOut();
                     }}
                 >
                     INDEX
