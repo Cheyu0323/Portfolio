@@ -26,7 +26,6 @@ const Item = styled.div<item>`
     text-decoration: ${(props) =>
         props.isSelect === true ? "line-through" : ""};
     pointer-events: ${(props) => (props.isSelect === true ? "none" : "auto")};
-    cursor: pointer;
     opacity: 1;
 `;
 

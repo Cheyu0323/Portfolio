@@ -37,7 +37,6 @@ const Line = styled.span`
 `;
 
 const MenuBtnContainer = styled(Stack)`
-    cursor: pointer;
     overflow: hidden;
     &:hover {
         span {
@@ -148,13 +147,7 @@ const Header: React.FC = () => {
             }}
         >
             <Box>
-                <Type
-                    onMouseOver={handleMouseOver}
-                    onMouseOut={handleMouseOut}
-                    onClick={() => {
-                        n("/Portfolio/");
-                    }}
-                >
+                <Type >
                     CHEYU
                 </Type>
             </Box>

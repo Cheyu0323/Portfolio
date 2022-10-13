@@ -113,7 +113,6 @@ const WorkItem = () => {
                             onMouseOut={handleMouseOut}
                             noWrap
                             style={{
-                                cursor: "pointer",
                                 wordBreak: "break-word",
                             }}
                         >
@@ -172,7 +171,6 @@ const WorkItem = () => {
                     style={{
                         display: "inline",
                         textDecoration: "underline",
-                        cursor: "pointer",
                         pointerEvents:
                             workPreItem !== undefined ? "auto" : "none",
                     }}
@@ -191,7 +189,6 @@ const WorkItem = () => {
                     style={{
                         display: "inline",
                         textDecoration: "underline",
-                        cursor: "pointer",
                     }}
                     weight={300}
                     letspacing="1px"
@@ -208,7 +205,6 @@ const WorkItem = () => {
                     style={{
                         display: "inline",
                         textDecoration: "underline",
-                        cursor: "pointer",
                         pointerEvents:
                             workNextItem !== undefined ? "auto" : "none",
                     }}

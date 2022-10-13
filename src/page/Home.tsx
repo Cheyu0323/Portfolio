@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { setState } from "../slices/menu";
 import { useAppDispatch } from "../hooks";
 
-const Index = () => {
+const Home = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(setState("home"));
@@ -10,4 +10,4 @@ const Index = () => {
     return <div></div>;
 };
 
-export default Index;
+export default Home;

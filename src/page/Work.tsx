@@ -70,7 +70,6 @@ const ImageItem: React.FC<imageItem> = ({ isDesktop, image }) => {
 
 const ImageContainer = styled(Box)`
     && {
-        cursor: pointer;
         &:hover {
             span {
                 &::before {
