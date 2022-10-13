@@ -153,6 +153,7 @@ const Work = () => {
                             display="table"
                             onClick={() => {
                                 n("/Portfolio/works/" + item.name);
+                                handleMouseOut();
                             }}
                         >
                             <ImageItem
@@ -176,6 +177,7 @@ const Work = () => {
                                 onMouseOut={handleMouseOut}
                                 onClick={() => {
                                     n("/Portfolio/works/" + item.name);
+                                    handleMouseOut();
                                 }}
                                 style={{
                                     display: "inline",
@@ -241,6 +243,7 @@ const Work = () => {
                                     }
                                     onClick={() => {
                                         n("/Portfolio/works/" + item.name);
+                                        handleMouseOut();
                                     }}
                                 />
                             </ImageContainer>
@@ -257,6 +260,7 @@ const Work = () => {
                                     }}
                                     onClick={() => {
                                         n("/Portfolio/works/" + item.name);
+                                        handleMouseOut();
                                     }}
                                 >
                                     {item.title}

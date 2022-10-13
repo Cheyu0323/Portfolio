@@ -180,6 +180,7 @@ const WorkItem = () => {
                     onMouseOut={handleMouseOut}
                     onClick={() => {
                         n("/Portfolio/works/" + workPreItem.name);
+                        handleMouseOut();
                     }}
                 >
                     {workPreItem !== undefined && "PREV"}
@@ -215,6 +216,7 @@ const WorkItem = () => {
                     onMouseOut={handleMouseOut}
                     onClick={() => {
                         n("/Portfolio/works/" + workNextItem.name);
+                        handleMouseOut();
                     }}
                 >
                     {workNextItem !== undefined && "NEXT"}
