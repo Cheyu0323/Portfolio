@@ -198,7 +198,7 @@ const WorkItem = () => {
                     onMouseOver={handleMouseOver}
                     onMouseOut={handleMouseOut}
                     onClick={() => {
-                        n("/Portfolio//works");
+                        n("/Portfolio/works");
                     }}
                 >
                     INDEX
@@ -217,7 +217,7 @@ const WorkItem = () => {
                     onMouseOver={handleMouseOver}
                     onMouseOut={handleMouseOut}
                     onClick={() => {
-                        n("/Portfolio//works/" + workNextItem.name);
+                        n("/Portfolio/works/" + workNextItem.name);
                     }}
                 >
                     {workNextItem !== undefined && "NEXT"}
