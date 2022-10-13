@@ -255,6 +255,9 @@ const Work = () => {
                                     style={{
                                         display: "inline",
                                     }}
+                                    onClick={() => {
+                                        n("/Portfolio/works/" + item.name);
+                                    }}
                                 >
                                     {item.title}
                                 </Typo>
@@ -280,7 +283,9 @@ const Work = () => {
                                             display: "inline",
                                         }}
                                     >
-                                        {item.url}
+                                        <a href={item.url} target="_blank">
+                                            {item.url}
+                                        </a>
                                     </Typo>
                                 )}
                             </Box>
