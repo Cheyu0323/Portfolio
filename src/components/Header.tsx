@@ -6,7 +6,6 @@ import { setHover } from "../slices/cursor";
 import { setClick } from "../slices/menu";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { useNavigate } from "react-router-dom";
 
 const Type = styled(Typography)`
     && {
@@ -94,6 +93,8 @@ const MenuBtn: React.FC<menuBtn> = ({ onMouseOver, onMouseOut }) => {
         return () => ctx.revert();
     }, []);
 
+
+
     useEffect(() => {
         menuTimeline.current?.reversed(!menuReducers.isClick);
     }, [menuReducers.isClick]);
@@ -123,8 +124,14 @@ const MenuBtn: React.FC<menuBtn> = ({ onMouseOver, onMouseOut }) => {
 };
 
 const Header: React.FC = () => {
-    const n = useNavigate();
+    const element = useRef<HTMLElement | null>(null)
     const dispatch = useAppDispatch();
+    const loadingReducers = useAppSelector((state) => state.loadingReducers);
+    useEffect(() => {
+        if(loadingReducers.isLoading) return
+        gsap.fromTo(element.current, {y: "-200"}, {y: "0", duration: 0.8})
+    }, [loadingReducers.isLoading]);
+
     const handleMouseOver = () => {
         dispatch(setHover(true));
     };
@@ -141,9 +148,11 @@ const Header: React.FC = () => {
             position="sticky"
             top="0"
             width="100%"
+            ref={element}
             sx={{
                 zIndex: "900",
                 boxSizing: "border-box",
+                transform: "translate(0px, -200px)"
             }}
         >
             <Box component="div">

@@ -84,6 +84,7 @@ const App = () => {
                     <Cursor />
                     <Menu />
                     <Model />
+                    {element}
                 </Box>
             </Stack>
         </ThemeProvider>

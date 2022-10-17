@@ -2,11 +2,15 @@ import { useRef, useEffect, useState, Suspense } from "react";
 import { Canvas, useFrame, useLoader, ThreeEvent } from "@react-three/fiber";
 import { Mesh } from "three";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { useAppSelector } from "../hooks";
+import { setLoading } from "../slices/loading";
+import { setClick } from "../slices/menu";
+import { setHover } from "../slices/cursor";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import gsap from "gsap";
 import Loading from "./Loading"
 
 const Geometry = () => {
+    const dispatch = useAppDispatch();
     const menuReducers = useAppSelector((state) => state.menuReducers);
     const geometryRef = useRef<Mesh>(null!);
     const geometryOpacityRef = useRef<Mesh>(null!);
@@ -247,15 +251,26 @@ const Geometry = () => {
         });
     };
     useEffect(() => {
-      console.log("B")
+        dispatch(setLoading(false));
     }, [])
-    
+    const handleClick = () => {
+        dispatch(setClick(!menuReducers.isClick))
+    }
+    const handleMouseOver = () => {
+        dispatch(setHover(true));
+    };
+    const handleMouseOut = () => {
+        dispatch(setHover(false));
+    };
     return (
         <group>
             <mesh
                 ref={geometryRef}
                 scale={1.5}
+                onClick={handleClick}
                 onPointerMove={handlePointerMove}
+                onPointerOver={handleMouseOver}
+                onPointerOut={handleMouseOut}
             >
                 <dodecahedronGeometry />
                 <meshPhysicalMaterial
