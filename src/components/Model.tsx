@@ -4,7 +4,7 @@ import { Mesh } from "three";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { useAppSelector } from "../hooks";
 import gsap from "gsap";
-import styled from "styled-components";
+import Loading from "./Loading"
 
 const Geometry = () => {
     const menuReducers = useAppSelector((state) => state.menuReducers);
@@ -73,7 +73,6 @@ const Geometry = () => {
                 );
         });
     };
-
     const homeOutAnim = () => {
         return gsap.context(() => {
             gsap.timeline({
@@ -121,7 +120,6 @@ const Geometry = () => {
                 );
         });
     };
-
     const enterAnim = () => {
         return gsap.context(() => {
             gsap.timeline({
@@ -241,7 +239,6 @@ const Geometry = () => {
 
     const handlePointerMove = (event: ThreeEvent<PointerEvent>) => {
         //ref.current.lookAt(event.point);
-
         gsap.to(geometryRef.current.rotation, {
             duration: 5,
             x: geometryRef.current.rotation.x + event.point.x,
@@ -249,6 +246,10 @@ const Geometry = () => {
             z: geometryRef.current.rotation.z + event.point.z,
         });
     };
+    useEffect(() => {
+      console.log("B")
+    }, [])
+    
     return (
         <group>
             <mesh
@@ -279,26 +280,9 @@ const Geometry = () => {
     );
 };
 
-const LoadingPage = styled.div`
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border:1px solid gray;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: black;
-    z-index: 20;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 16px;
-`
-
-const Model:React.FC = () => {
+const Model: React.FC = () => {
     return (
-        <Suspense fallback={<LoadingPage >Loading...</LoadingPage>}>
+        <Suspense fallback={<Loading />}>
             <Canvas
                 style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}
             >

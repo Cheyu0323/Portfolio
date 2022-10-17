@@ -10,6 +10,7 @@ import Home from "./page/Home";
 import Work from "./page/Work";
 import WorkItem from "./page/WorkItem";
 import { RouteObject, useRoutes } from "react-router-dom";
+import Loading from "./components/Loading";
 
 const theme = createTheme({
     typography: {
@@ -72,6 +73,7 @@ const App = () => {
                 }}
             >
                 <Box
+                    component="div"
                     width="90%"
                     height="100%"
                     sx={{
@@ -82,7 +84,6 @@ const App = () => {
                     <Cursor />
                     <Menu />
                     <Model />
-                    {element}
                 </Box>
             </Stack>
         </ThemeProvider>

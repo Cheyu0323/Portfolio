@@ -6,9 +6,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-*{
-    cursor: none;
-}
 #root {
     box-sizing: border-box;
 }

@@ -146,12 +146,12 @@ const Header: React.FC = () => {
                 boxSizing: "border-box",
             }}
         >
-            <Box>
+            <Box component="div">
                 <Type >
                     CHEYU
                 </Type>
             </Box>
-            <Box>
+            <Box component="div">
                 <MenuBtn
                     onMouseOver={handleMouseOver}
                     onMouseOut={handleMouseOut}
