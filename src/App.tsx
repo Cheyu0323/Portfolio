@@ -10,7 +10,6 @@ import Home from "./page/Home";
 import Work from "./page/Work";
 import WorkItem from "./page/WorkItem";
 import { RouteObject, useRoutes } from "react-router-dom";
-import Loading from "./components/Loading";
 
 const theme = createTheme({
     typography: {
@@ -84,7 +83,7 @@ const App = () => {
                     <Cursor />
                     <Menu />
                     <Model />
-                    <Loading />
+                    {element}
                 </Box>
             </Stack>
         </ThemeProvider>
