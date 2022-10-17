@@ -18,9 +18,9 @@ const Loading = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 157.5px;
-    height: 150px;
-	pointer-events: none;
+    width: 187.5px;
+    height: 180px;
+	  pointer-events: none;
     background: ${color.primary.gray};
     clip-path: polygon(50% 0, 100% 38%, 81% 100%, 19% 100%, 0 38%);
     &::before {
@@ -37,13 +37,13 @@ const Loading = styled.div`
     &::after {
         content: "Loading";
         position: absolute;
-        top: 50%;
+        top: 53%;
         left: 50%;
         transform: translate(-50%, -50%);
         color: ${color.primary.light};
         font-size: 20px;
-        font-weight: 300;
-        letter-spacing: 3px;
+        font-weight: 500;
+        letter-spacing: 2px;
         animation: ${LoadAnimation} 2s infinite;
     }
 `;

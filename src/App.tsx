@@ -84,7 +84,7 @@ const App = () => {
                     <Cursor />
                     <Menu />
                     <Model />
-                    {element}
+                    <Loading />
                 </Box>
             </Stack>
         </ThemeProvider>
