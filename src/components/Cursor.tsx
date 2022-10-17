@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import color from "../data/color";
 import styled from "styled-components";
 import { useAppSelector } from "../hooks";
+import gsap from "gsap";
 
 type cursorPoint = {
     isHover?: boolean;
@@ -22,6 +23,7 @@ const CursorPoint = styled.div<cursorPoint>`
     z-index: 20;
     pointer-events: none;
     transition: background 0.2s, width 0.5s, height 0.5s;
+    opacity: 0;
     animation: ${(props) =>
         props.isHover === true ? "rotation 8s linear infinite;" : ""};
     @keyframes rotation {
@@ -41,9 +43,18 @@ type cursor = {
 
 const Cursor: React.FC<cursor> = () => {
     //const [cursorXY, setCursorXY] = useState({ x: -100, y: -100 });
+    const loadingReducers = useAppSelector((state) => state.loadingReducers);
     const cursorReducers = useAppSelector((state) => state.cursorReducers);
+    const element = useRef<HTMLDivElement | null>(null);
     const isHover = cursorReducers.isHover;
-
+    useEffect(() => {
+        if (loadingReducers.isLoading) return;
+        gsap.fromTo(
+            element.current,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.2 }
+        );
+    }, [loadingReducers.isLoading]);
     useEffect(() => {
         const moveCursor = (e: MouseEvent) => {
             //const x = e.clientX - (isHover ? 10 : 5);
@@ -63,7 +74,7 @@ const Cursor: React.FC<cursor> = () => {
         };
     }, []);
 
-    return <CursorPoint isHover={isHover} />;
+    return <CursorPoint isHover={isHover} ref={element} />;
 };
 
 export default Cursor;

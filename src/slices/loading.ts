@@ -9,7 +9,7 @@ const initialState: InitialState = {
 };
 
 export const loadingrSlice = createSlice({
-    name: "loading",
+    name: "load",
     initialState,
     reducers: {
         setLoading: (state, action) => {
