@@ -6,6 +6,7 @@ import { setHover } from "../slices/cursor";
 import { setClick } from "../slices/menu";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
+import ReactGA from "react-ga4";
 
 const Type = styled(Typography)`
     && {
@@ -101,6 +102,7 @@ const MenuBtn: React.FC<menuBtn> = ({ onMouseOver, onMouseOut }) => {
 
     const handleMenuClick = () => {
         dispatch(setClick(!menuReducers.isClick));
+        ReactGA.event({ category: "menu", action: "click", label: "menu_btn" });
     };
 
     return (
@@ -127,6 +129,7 @@ const Header: React.FC = () => {
     const element = useRef<HTMLElement | null>(null)
     const dispatch = useAppDispatch();
     const loadingReducers = useAppSelector((state) => state.loadingReducers);
+    ReactGA.initialize("G-8VYTXWV4B0");
     useEffect(() => {
         if(loadingReducers.isLoading) return
         gsap.fromTo(element.current, {y: "-200"}, {y: "0", duration: 0.8})

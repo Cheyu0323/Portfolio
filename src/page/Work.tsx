@@ -9,6 +9,7 @@ import color from "../data/color";
 import Typo from "../components/Typo";
 import gsap from "gsap";
 import { useNavigate } from "react-router-dom";
+import ReactGA from "react-ga4";
 
 type image = {
     link?: string;
@@ -85,6 +86,7 @@ const ImageContainer = styled(Box)`
 `;
 
 const Work = () => {
+    ReactGA.initialize("G-8VYTXWV4B0");
     const n = useNavigate();
     const dispatch = useAppDispatch();
     const menuReducers = useAppSelector((state) => state.menuReducers);
@@ -154,6 +156,11 @@ const Work = () => {
                             onClick={() => {
                                 n("/Portfolio/works/" + item.name);
                                 handleMouseOut();
+                                ReactGA.event({
+                                    category: "work",
+                                    action: "click",
+                                    label: "image_" + item.name,
+                                });
                             }}
                         >
                             <ImageItem
@@ -178,6 +185,11 @@ const Work = () => {
                                 onClick={() => {
                                     n("/Portfolio/works/" + item.name);
                                     handleMouseOut();
+                                    ReactGA.event({
+                                        category: "work",
+                                        action: "click",
+                                        label: "text_" + item.name,
+                                    });
                                 }}
                                 style={{
                                     display: "inline",
@@ -207,7 +219,18 @@ const Work = () => {
                                         display: "inline",
                                     }}
                                 >
-                                    <a href={item.url} target="_blank">
+                                    <a
+                                        href={item.url}
+                                        onClick={() => {
+                                            ReactGA.event({
+                                                category: "work",
+                                                action: "click",
+                                                label: item.url,
+                                            });
+                                        }}
+                                        rel="noreferrer"
+                                        target="_blank"
+                                    >
                                         {item.url}
                                     </a>
                                 </Typo>
@@ -244,6 +267,11 @@ const Work = () => {
                                     onClick={() => {
                                         n("/Portfolio/works/" + item.name);
                                         handleMouseOut();
+                                        ReactGA.event({
+                                            category: "work",
+                                            action: "click",
+                                            label: "image_" + item.name,
+                                        });
                                     }}
                                 />
                             </ImageContainer>
@@ -261,6 +289,11 @@ const Work = () => {
                                     onClick={() => {
                                         n("/Portfolio/works/" + item.name);
                                         handleMouseOut();
+                                        ReactGA.event({
+                                            category: "work",
+                                            action: "click",
+                                            label: "text_" + item.name,
+                                        });
                                     }}
                                 >
                                     {item.title}
@@ -287,7 +320,18 @@ const Work = () => {
                                             display: "inline",
                                         }}
                                     >
-                                        <a href={item.url} target="_blank">
+                                        <a
+                                            href={item.url}
+                                            rel="noreferrer"
+                                            onClick={() => {
+                                                ReactGA.event({
+                                                    category: "work",
+                                                    action: "click",
+                                                    label: item.url,
+                                                });
+                                            }}
+                                            target="_blank"
+                                        >
                                             {item.url}
                                         </a>
                                     </Typo>

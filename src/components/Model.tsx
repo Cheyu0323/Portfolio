@@ -7,9 +7,11 @@ import { setClick } from "../slices/menu";
 import { setHover } from "../slices/cursor";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import gsap from "gsap";
-import Loading from "./Loading"
+import Loading from "./Loading";
+import ReactGA from "react-ga4";
 
 const Geometry = () => {
+    ReactGA.initialize("G-8VYTXWV4B0");
     const dispatch = useAppDispatch();
     const menuReducers = useAppSelector((state) => state.menuReducers);
     const geometryRef = useRef<Mesh>(null!);
@@ -252,10 +254,15 @@ const Geometry = () => {
     };
     useEffect(() => {
         dispatch(setLoading(false));
-    }, [])
+    }, []);
     const handleClick = () => {
-        dispatch(setClick(!menuReducers.isClick))
-    }
+        dispatch(setClick(!menuReducers.isClick));
+        ReactGA.event({
+            category: "menu",
+            action: "click",
+            label: "menu_model",
+        });
+    };
     const handleMouseOver = () => {
         dispatch(setHover(true));
     };

@@ -8,8 +8,10 @@ import workInfo from "../data/worksInfo";
 import color from "../data/color";
 import gsap from "gsap";
 import { useParams, useNavigate } from "react-router-dom";
+import ReactGA from "react-ga4";
 
 const WorkItem = () => {
+    ReactGA.initialize("G-8VYTXWV4B0");
     const paramsTitle = useParams().title;
     const n = useNavigate();
     const workIndex = workInfo.findIndex((item) => item.name === paramsTitle);
@@ -116,7 +118,18 @@ const WorkItem = () => {
                                 wordBreak: "break-word",
                             }}
                         >
-                            <a href={workItem.url} target="_blank">
+                            <a
+                                href={workItem.url}
+                                onClick={() => {
+                                    ReactGA.event({
+                                        category: "work",
+                                        action: "click",
+                                        label: workItem.url,
+                                    });
+                                }}
+                                rel="noreferrer"
+                                target="_blank"
+                            >
                                 {workItem.url}
                             </a>
                         </Typo>

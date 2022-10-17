@@ -6,6 +6,7 @@ import { setHover } from "../slices/cursor";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import gsap from "gsap";
 import { useNavigate } from "react-router-dom";
+import ReactGA from "react-ga4";
 
 const MenuContainer = styled(Stack)`
     width: 100%;
@@ -30,6 +31,7 @@ const Item = styled.div<item>`
 `;
 
 const Menu = () => {
+    ReactGA.initialize("G-8VYTXWV4B0");
     const n = useNavigate();
     const dispatch = useAppDispatch();
     const menuReducers = useAppSelector((state) => state.menuReducers);
@@ -69,6 +71,7 @@ const Menu = () => {
                 onMouseOut={handleMouseOut}
                 onClick={() => {
                     n("/Portfolio/");
+        ReactGA.event({ category: "menu", action: "click", label: "menu_home" });
                     handleMouseOut();
                 }}
             >
@@ -81,6 +84,7 @@ const Menu = () => {
                 onMouseOut={handleMouseOut}
                 onClick={() => {
                     n("/Portfolio/about");
+                    ReactGA.event({ category: "menu", action: "click", label: "menu_about" });
                     handleMouseOut();
                 }}
             >
@@ -93,6 +97,7 @@ const Menu = () => {
                 onMouseOut={handleMouseOut}
                 onClick={() => {
                     n("/Portfolio/works");
+                    ReactGA.event({ category: "menu", action: "click", label: "menu_works" });
                     handleMouseOut();
                 }}
             >

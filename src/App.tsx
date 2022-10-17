@@ -1,15 +1,17 @@
+import { Box, Stack, createTheme, ThemeProvider } from "@mui/material";
+import { useEffect } from "react";
+import { RouteObject, useRoutes } from "react-router-dom";
 import Model from "./components/Model";
 import Cursor from "./components/Cursor";
 import color from "./data/color";
 import Header from "./components/Header";
-import { Box, Stack, createTheme, ThemeProvider } from "@mui/material";
 import useWindowSize from "./customHooks/useWindowSize";
 import Menu from "./components/Menu";
 import About from "./page/About";
 import Home from "./page/Home";
 import Work from "./page/Work";
 import WorkItem from "./page/WorkItem";
-import { RouteObject, useRoutes } from "react-router-dom";
+import ReactGA from "react-ga4";
 
 const theme = createTheme({
     typography: {
@@ -57,9 +59,13 @@ const routerConfig: RouteObject[] = [
     },
 ];
 
-const App = () => {
+const App: React.FC = () => {
     const windowSize = useWindowSize();
     const element = useRoutes(routerConfig);
+    ReactGA.initialize("G-8VYTXWV4B0");
+    useEffect(() => {
+        ReactGA.send({ hitType: "pageview", page_title: window.location.pathname + window.location.search });
+    }, [element]);
 
     return (
         <ThemeProvider theme={theme}>
