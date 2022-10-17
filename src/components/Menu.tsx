@@ -67,7 +67,10 @@ const Menu = () => {
                 isSelect={menuReducers.state === "home" ? true : false}
                 onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
-                onClick={() => n("/Portfolio/")}
+                onClick={() => {
+                    n("/Portfolio/");
+                    handleMouseOut();
+                }}
             >
                 HOME
             </Item>
@@ -76,7 +79,10 @@ const Menu = () => {
                 isSelect={menuReducers.state === "about" ? true : false}
                 onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
-                onClick={() => n("/Portfolio/about")}
+                onClick={() => {
+                    n("/Portfolio/about");
+                    handleMouseOut();
+                }}
             >
                 ABOUT
             </Item>
@@ -85,7 +91,10 @@ const Menu = () => {
                 isSelect={menuReducers.state === "works" ? true : false}
                 onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
-                onClick={() => n("/Portfolio/works")}
+                onClick={() => {
+                    n("/Portfolio/works");
+                    handleMouseOut();
+                }}
             >
                 WORKS
             </Item>
