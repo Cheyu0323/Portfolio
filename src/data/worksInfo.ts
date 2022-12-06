@@ -21,7 +21,7 @@ const workInfo: Array<work> = [
         name: "seaweed",
         title: "seaweed-house",
         types: [{ id: "ty_6_1", item: "design" }],
-        url: "https://cheyu0323.github.io/seaweed-house",
+        url: "https://cheyu0323.github.io/seaweed-house/",
         technologys: [
             { id: "te_6_1", item: "Next" },
             { id: "te_6_2", item: "Tailwindcss" },
