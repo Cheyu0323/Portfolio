@@ -70,7 +70,7 @@ const Menu = () => {
                 onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 onClick={() => {
-                    n("/Portfolio/");
+                    n("/");
         ReactGA.event({ category: "menu", action: "click", label: "menu_home" });
                     handleMouseOut();
                 }}
@@ -83,7 +83,7 @@ const Menu = () => {
                 onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 onClick={() => {
-                    n("/Portfolio/about");
+                    n("/about");
                     ReactGA.event({ category: "menu", action: "click", label: "menu_about" });
                     handleMouseOut();
                 }}
@@ -96,7 +96,7 @@ const Menu = () => {
                 onMouseOver={handleMouseOver}
                 onMouseOut={handleMouseOut}
                 onClick={() => {
-                    n("/Portfolio/works");
+                    n("/works");
                     ReactGA.event({ category: "menu", action: "click", label: "menu_works" });
                     handleMouseOut();
                 }}

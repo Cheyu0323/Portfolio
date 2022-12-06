@@ -17,6 +17,28 @@ interface work {
 
 const workInfo: Array<work> = [
     {
+        id: 7,
+        name: "seaweed",
+        title: "seaweed-house",
+        types: [{ id: "ty_6_1", item: "design" }],
+        url: "https://cheyu0323.github.io/seaweed-house",
+        technologys: [
+            { id: "te_6_1", item: "Next" },
+            { id: "te_6_2", item: "Tailwindcss" },
+        ],
+        pics: {
+            desktop: [
+                { id: "pc_7_1", item: "/assets/work/swaweed/swaweed1.png" },
+                { id: "pc_7_2", item: "/assets/work/swaweed/swaweed2.png" },
+            ],
+            mobile: [
+                { id: "mb_7_1", item: "/assets/work/swaweed/swaweed3.png" },
+                { id: "mb_7_2", item: "/assets/work/swaweed/swaweed4.png" },
+                { id: "mb_7_3", item: "/assets/work/swaweed/swaweed5.png" },
+            ],
+        },
+    },
+    {
         id: 1,
         name: "SUSHI",
         title: "SUSHI SHOP",
@@ -66,7 +88,7 @@ const workInfo: Array<work> = [
         id: 2,
         name: "GMDSS",
         title: "GMDSS",
-        types: [{ id: "ty_2_1", item: "School" }],
+        types: [{ id: "ty_2_1", item: "school" }],
         technologys: [
             { id: "te_2_1", item: "Unity" },
             { id: "te_2_2", item: "Photon" },
@@ -85,7 +107,7 @@ const workInfo: Array<work> = [
         id: 3,
         name: "deepocean",
         title: "藏藍回音",
-        types: [{ id: "ty_3_1", item: "School" }],
+        types: [{ id: "ty_3_1", item: "school" }],
         technologys: [
             { id: "te_3_1", item: "Unity" },
             { id: "te_3_2", item: "VR" },
@@ -103,7 +125,7 @@ const workInfo: Array<work> = [
         id: 4,
         name: "nursing",
         title: "護理工作車(評估、護理紀畫)",
-        types: [{ id: "ty_3_1", item: "School" }],
+        types: [{ id: "ty_3_1", item: "school" }],
         technologys: [
             { id: "te_4_1", item: "HTML" },
             { id: "te_4_2", item: "CSS" },
@@ -140,7 +162,7 @@ const workInfo: Array<work> = [
         id: 5,
         name: "officialcar",
         title: "公務車申請系統",
-        types: [{ id: "ty_5_1", item: "School" }],
+        types: [{ id: "ty_5_1", item: "school" }],
         technologys: [
             { id: "te_5_1", item: "HTML" },
             { id: "te_5_2", item: "CSS" },

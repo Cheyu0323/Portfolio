@@ -42,19 +42,19 @@ const theme = createTheme({
 
 const routerConfig: RouteObject[] = [
     {
-        path: "/Portfolio/",
+        path: "/",
         element: <Home />,
     },
     {
-        path: "/Portfolio/about",
+        path: "/about",
         element: <About />,
     },
     {
-        path: "/Portfolio/works",
+        path: "/works",
         element: <Work />,
     },
     {
-        path: "/Portfolio/works/:title",
+        path: "/works/:title",
         element: <WorkItem />,
     },
 ];

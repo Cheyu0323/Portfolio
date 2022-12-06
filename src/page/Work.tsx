@@ -154,7 +154,7 @@ const Work = () => {
                             width="100%"
                             display="table"
                             onClick={() => {
-                                n("/Portfolio/works/" + item.name);
+                                n("/works/" + item.name);
                                 handleMouseOut();
                                 ReactGA.event({
                                     category: "work",
@@ -183,7 +183,7 @@ const Work = () => {
                                 onMouseOver={handleMouseOver}
                                 onMouseOut={handleMouseOut}
                                 onClick={() => {
-                                    n("/Portfolio/works/" + item.name);
+                                    n("/works/" + item.name);
                                     handleMouseOut();
                                     ReactGA.event({
                                         category: "work",
@@ -265,7 +265,7 @@ const Work = () => {
                                         item.pics.desktop[0].item
                                     }
                                     onClick={() => {
-                                        n("/Portfolio/works/" + item.name);
+                                        n("/works/" + item.name);
                                         handleMouseOut();
                                         ReactGA.event({
                                             category: "work",
@@ -287,7 +287,7 @@ const Work = () => {
                                         display: "inline",
                                     }}
                                     onClick={() => {
-                                        n("/Portfolio/works/" + item.name);
+                                        n("/works/" + item.name);
                                         handleMouseOut();
                                         ReactGA.event({
                                             category: "work",

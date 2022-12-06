@@ -155,12 +155,17 @@ const WorkItem = () => {
                     component="img"
                     style={{
                         boxShadow: `1.5px 1.5px 7px ${color.primary.light}`,
+                        marginRight: "2px",
+                        marginLeft: "2px"
                     }}
                     src={process.env.PUBLIC_URL + ele.item}
                 />
             ))}
             {workItem.pics.mobile !== undefined && (
-                <Stack direction="row" justifyContent="space-between">
+                <Stack direction="row" justifyContent="space-between" style={{
+                    marginRight: "2px",
+                    marginLeft: "2px"
+                }}>
                     {workItem.pics.mobile.map((ele) => (
                         <Box
                             key={ele.id}
@@ -192,7 +197,7 @@ const WorkItem = () => {
                     onMouseOver={handleMouseOver}
                     onMouseOut={handleMouseOut}
                     onClick={() => {
-                        n("/Portfolio/works/" + workPreItem.name);
+                        n("/works/" + workPreItem.name);
                         handleMouseOut();
                     }}
                 >
@@ -209,7 +214,7 @@ const WorkItem = () => {
                     onMouseOver={handleMouseOver}
                     onMouseOut={handleMouseOut}
                     onClick={() => {
-                        n("/Portfolio/works");
+                        n("/works");
                         handleMouseOut();
                     }}
                 >
@@ -228,7 +233,7 @@ const WorkItem = () => {
                     onMouseOver={handleMouseOver}
                     onMouseOut={handleMouseOut}
                     onClick={() => {
-                        n("/Portfolio/works/" + workNextItem.name);
+                        n("/works/" + workNextItem.name);
                         handleMouseOut();
                     }}
                 >
