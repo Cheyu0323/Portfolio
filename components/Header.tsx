@@ -34,8 +34,8 @@ const HanburgerMenu: React.FC = () => {
                 .to("#line2", { "--opacity": 0, opacity: 0, duration: 0 }, 0)
                 .to("#line3", { y: -7, duration: 0.5 }, 0)
                 .to("#line3", { "--opacity": 0, duration: 0 }, 0)
-                .to("#line1", { rotate: "45deg", duration: 0.5 }, 0)
-                .to("#line3", { rotate: "-45deg", duration: 0.5 }, 0);
+                .to("#line1", { rotate: "45deg", duration: 0.5 }, 0.5)
+                .to("#line3", { rotate: "-45deg", duration: 0.5 }, 0.5);
 
             if (isMenuDisplay) tl.play();
         }, menuIconRef);
@@ -48,9 +48,9 @@ const HanburgerMenu: React.FC = () => {
                 .timeline({ paused: true })
                 .to("#line1", { rotate: "0", duration: 0.5 }, 0)
                 .to("#line3", { rotate: "0", duration: 0.5 }, 0)
-                .to("#line1", { "--opacity": 1, y: 0, duration: 0.5 }, 0)
-                .to("#line2", { "--opacity": 1, opacity: 1, duration: 0 }, 0)
-                .to("#line3", { "--opacity": 1, y: 0, duration: 0.5 }, 0);
+                .to("#line1", { "--opacity": 1, y: 0, duration: 0.5 }, 0.5)
+                .to("#line2", { "--opacity": 1, opacity: 1, duration: 0 }, 0.5)
+                .to("#line3", { "--opacity": 1, y: 0, duration: 0.5 }, 0.5);
 
             if (!isMenuDisplay) tl1.play();
         }, menuIconRef);
