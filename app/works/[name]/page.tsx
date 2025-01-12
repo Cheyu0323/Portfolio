@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import useCursorStore from "@/store/cursorStore";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const Work = () => {
     const isHover = useCursorStore().handleIsHover;
@@ -55,6 +56,7 @@ const Work = () => {
     return (
         <>
             <title>{`張哲瑜 Portfolio - ${findWork.title}`}</title>
+            <GoogleAnalytics gaId="G-EPLTFP1W3H" />
             <main className="h-full z-20 relative overflow-scroll">
                 <div className="text-xl tracking-wide font-bold flex flex-row gap-x-1 items-center w-full max-w-5xl m-auto">
                     {findWork.title}

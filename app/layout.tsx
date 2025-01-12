@@ -6,7 +6,6 @@ import CursorPoint from "@/components/CursorPoint";
 import Header from "@/components/Header";
 import Scene from "@/components/Scene";
 import Menu from "@/components/Menu";
-import { GoogleAnalytics } from "@next/third-parties/google";
 
 // If loading a variable font, you don't need to specify the font weight
 const inter = Noto_Sans_TC({ subsets: ["latin"] });
@@ -28,7 +27,6 @@ export default function RootLayout({
                 className={`${inter.className} bg-background/30 h-svh relative`}
             >
                 <Header />
-                <GoogleAnalytics gaId="G-EPLTFP1W3H" />
                 <Menu />
                 <CursorPoint />
                 <Scene />
