@@ -27,6 +27,7 @@ const WorkItem: React.FC<WorkItemProps> = ({ name, title, url, pics }) => {
             category: "專案項目",
             label: title,
         });
+        handleMouseOut();
     };
     return (
         <div className="w-full flex flex-col">
@@ -75,6 +76,7 @@ const WorkItem: React.FC<WorkItemProps> = ({ name, title, url, pics }) => {
                                 category: "專案項目_跳轉",
                                 label: title,
                             });
+                            handleMouseOut();
                         }}
                     >
                         <div className="relative w-3.5 h-3.5 hover:text-font_dark duration-150 rounded-full ">

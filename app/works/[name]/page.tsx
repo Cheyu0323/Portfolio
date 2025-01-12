@@ -36,6 +36,7 @@ const Work = () => {
             category: "專案項目",
             label: "主頁",
         });
+        handleMouseOut();
     };
     const handleToNext = () => {
         const nextWork = workList[findIdexWork + 1].name;
@@ -44,6 +45,7 @@ const Work = () => {
             category: "專案項目",
             label: "下一頁",
         });
+        handleMouseOut();
     };
     const handleToPrev = () => {
         const nextWork = workList[findIdexWork - 1].name;
@@ -52,6 +54,7 @@ const Work = () => {
             category: "專案項目",
             label: "上一頁",
         });
+        handleMouseOut();
     };
     return (
         <>
@@ -72,6 +75,7 @@ const Work = () => {
                                     category: "專案項目_跳轉",
                                     label: findWork.title,
                                 });
+                                handleMouseOut();
                             }}
                         >
                             <div className="font-normal text-xs">

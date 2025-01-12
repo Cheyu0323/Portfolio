@@ -53,6 +53,7 @@ const Menu: React.FC = () => {
                         category: "清單",
                         label: "Home",
                     });
+                    onLeave();
                 }}
             >
                 HOME
@@ -74,6 +75,7 @@ const Menu: React.FC = () => {
                         category: "清單",
                         label: "About",
                     });
+                    onLeave();
                 }}
             >
                 ABOUT
@@ -95,6 +97,7 @@ const Menu: React.FC = () => {
                         category: "清單",
                         label: "Works",
                     });
+                    onLeave();
                 }}
             >
                 WORKS

@@ -271,6 +271,7 @@ const SphereModal = () => {
             category: "模型",
             label: "清單",
         });
+        handlePointerOut();
     };
 
     return (

@@ -21,6 +21,7 @@ const HanburgerMenu: React.FC = () => {
                 label: "清單",
             });
         }
+        onLeave();
     };
 
     useGSAP(() => {
