@@ -66,7 +66,7 @@ const Work = () => {
                     {findWork.url != null && (
                         <Link
                             target="_blank"
-                            className="ml-auto flex items-center justify-center gap-x-1 p-2 border hover:border-black duration-700 rounded"
+                            className="ml-auto flex items-center justify-center gap-x-1 p-2 border hover:border-black duration-700 rounded bg-[#303030] hover:bg-white text-white hover:text-black"
                             href={findWork.url}
                             onMouseOver={handleMouseOver}
                             onMouseOut={handleMouseOut}
