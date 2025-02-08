@@ -76,7 +76,7 @@
         "types": [{ "id": "ty_1_1", "item": "cover" }],
         "url": "https://cheyu0323.github.io/SUSHI/",
         "technologys": [
-            { "id": "te_1_1", "item": "React Hooks" },
+            { "id": "te_1_1", "item": "React" },
             { "id": "te_1_2", "item": "THREE.js" },
             { "id": "te_1_3", "item": "GreenSock" }
         ],
@@ -99,7 +99,7 @@
         "types": [{ "id": "ty_6_1", "item": "design" }],
         "url": "https://cheyu0323.github.io/CYs_PanotourPro_Plugin/",
         "technologys": [
-            { "id": "te_6_1", "item": "React Hooks" },
+            { "id": "te_6_1", "item": "React" },
             { "id": "te_6_2", "item": "Material UI" }
         ],
         "pics": {

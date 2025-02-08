@@ -29,7 +29,7 @@ const About = () => {
                     <div className="tracking-widest leading-10 text-[17px]">
                         畢業於國立臺中科技大學資訊管理系，勇於嘗試各種技術，過去接觸過
                         Unity
-                        遊戲引擎開發、互動網頁開，透過不斷實戰累積經驗，努力成為一個全方位的人。
+                        遊戲引擎開發、互動網頁開發，透過不斷實戰累積經驗，努力成為一個全方位的人。
                     </div>
                     <ScrollDown />
                 </div>
@@ -45,7 +45,7 @@ const About = () => {
                             <div className="text-sm mt-2.5">
                                 杰悉科技股份有限公司
                             </div>
-                            <div>2022/12 ~ 2025/03</div>
+                            <div>2022/12 ~ 2025/02</div>
                             <div>圖控儀表板開發</div>
                         </div>
                         <div className="flex flex-col gap-y-0.5  font-medium text-xs">

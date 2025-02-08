@@ -48,7 +48,7 @@ const WorkItem: React.FC<WorkItemProps> = ({ name, title, url, pics }) => {
                 {pics.mobile != null && (
                     <div className="w-3/12 h-full table-cell ">
                         <div
-                            className="pt-[180%] ml-[8%] bg-cover relative before:absolute before:w-full before:h-full before:top-0 before:left-0 group-hover:before:bg-black/40 before:duration-500 after:content-['VIEW'] after:opacity-0 after:tracking-tighter after:font-bold after:text-white after:absolute after:top-1/2 after:-translate-y-1/2 after:left-1/2 after:-translate-x-1/2 group-hover:after:opacity-100 group-hover:after:tracking-widest after:duration-500"
+                            className="pt-[180%] ml-[3%] bg-center bg-cover relative before:absolute before:w-full before:h-full before:top-0 before:left-0 group-hover:before:bg-black/40 before:duration-500 after:content-['VIEW'] after:opacity-0 after:tracking-tighter after:font-bold after:text-white after:absolute after:top-1/2 after:-translate-y-1/2 after:left-1/2 after:-translate-x-1/2 group-hover:after:opacity-100 group-hover:after:tracking-widest after:duration-500"
                             style={{
                                 backgroundImage: `url(${pics.mobile[0].item})`,
                             }}
