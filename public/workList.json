@@ -12,14 +12,14 @@
         ],
         "pics": {
             "desktop": [
-                { "id": "pc_9_3", "item": "/assets/work/bim/bim.png" },
-                { "id": "pc_9_2", "item": "/assets/work/bim/bim2.png" },
-                { "id": "pc_9_1", "item": "/assets/work/bim/bim1.png" }
+                { "id": "pc_9_3", "item": "/assets/work/bim/bim.webp", "alt": "BIM 建築模型 正面" },
+                { "id": "pc_9_1", "item": "/assets/work/bim/bim1.webp", "alt": "BIM 建築模型 樓層2 俯視" },
+                { "id": "pc_9_2", "item": "/assets/work/bim/bim2.webp", "alt": "BIM 建築模型 樓層1 環景視角" }
             ],
             "mobile": [
-                { "id": "md_9_4", "item": "/assets/work/bim/bim3.png" },
-                { "id": "md_9_5", "item": "/assets/work/bim/bim4.png" },
-                { "id": "md_9_6", "item": "/assets/work/bim/bim5.png" }
+                { "id": "md_9_4", "item": "/assets/work/bim/bim3.webp", "alt": "BIM 建築模型 正面"  },
+                { "id": "md_9_5", "item": "/assets/work/bim/bim4.webp", "alt": "BIM 建築模型 樓層2 俯視"  },
+                { "id": "md_9_6", "item": "/assets/work/bim/bim5.webp", "alt": "BIM 建築模型 透視管線" }
             ]
         }
     },
@@ -36,14 +36,14 @@
         ],
         "pics": {
             "desktop": [
-                { "id": "pc_8_3", "item": "/assets/work/bus_gis/bus-gis.png" },
-                { "id": "pc_8_1", "item": "/assets/work/bus_gis/bus-gis1.png" },
-                { "id": "pc_8_2", "item": "/assets/work/bus_gis/bus-gis2.png" }
+                { "id": "pc_8_3", "item": "/assets/work/bus_gis/bus-gis.webp", "alt": "台北雙層觀光巴士紅線路線圖 路線全視圖" },
+                { "id": "pc_8_1", "item": "/assets/work/bus_gis/bus-gis1.webp" , "alt": "台北雙層觀光巴士紅線路線圖 低空視角"},
+                { "id": "pc_8_2", "item": "/assets/work/bus_gis/bus-gis2.webp", "alt": "台北雙層觀光巴士紅線路線圖 101 模型" }
             ],
             "mobile": [
-                { "id": "md_8_6", "item": "/assets/work/bus_gis/bus-gis5.png" },
-                { "id": "md_8_4", "item": "/assets/work/bus_gis/bus-gis3.png" },
-                { "id": "md_8_5", "item": "/assets/work/bus_gis/bus-gis4.png" }
+                { "id": "md_8_6", "item": "/assets/work/bus_gis/bus-gis5.webp", "alt": "台北雙層觀光巴士紅線路線圖 跟隨巴士" },
+                { "id": "md_8_4", "item": "/assets/work/bus_gis/bus-gis3.webp", "alt": "台北雙層觀光巴士紅線路線圖 路線清單" },
+                { "id": "md_8_5", "item": "/assets/work/bus_gis/bus-gis4.webp", "alt": "台北雙層觀光巴士紅線路線圖 101 模型" }
             ]
         }
     },
@@ -59,13 +59,13 @@
         ],
         "pics": {
             "desktop": [
-                { "id": "pc_7_1", "item": "/assets/work/swaweed/swaweed1.png" },
-                { "id": "pc_7_2", "item": "/assets/work/swaweed/swaweed2.png" }
+                { "id": "pc_7_1", "item": "/assets/work/swaweed/swaweed1.webp", "alt": "海草家居 首頁" },
+                { "id": "pc_7_2", "item": "/assets/work/swaweed/swaweed2.webp", "alt": "海草家居 實際案例" }
             ],
             "mobile": [
-                { "id": "mb_7_1", "item": "/assets/work/swaweed/swaweed3.png" },
-                { "id": "mb_7_2", "item": "/assets/work/swaweed/swaweed4.png" },
-                { "id": "mb_7_3", "item": "/assets/work/swaweed/swaweed5.png" }
+                { "id": "mb_7_1", "item": "/assets/work/swaweed/swaweed3.webp", "alt": "海草家居 個案詳細資料" },
+                { "id": "mb_7_2", "item": "/assets/work/swaweed/swaweed4.webp", "alt": "海草家居 實際案例" },
+                { "id": "mb_7_3", "item": "/assets/work/swaweed/swaweed5.webp", "alt": "海草家居 首頁" }
             ]
         }
     },
@@ -82,13 +82,13 @@
         ],
         "pics": {
             "desktop": [
-                { "id": "pc_1_1", "item": "/assets/work/sushi/sushi1.png" },
-                { "id": "pc_1_2", "item": "/assets/work/sushi/sushi2.png" }
+                { "id": "pc_1_1", "item": "/assets/work/sushi/sushi1.webp", "alt": "SUSHI 模型首頁"  },
+                { "id": "pc_1_2", "item": "/assets/work/sushi/sushi2.webp", "alt": "SUSHI 菜單"  }
             ],
             "mobile": [
-                { "id": "mb_1_1", "item": "/assets/work/sushi/sushi3.png" },
-                { "id": "mb_1_2", "item": "/assets/work/sushi/sushi4.png" },
-                { "id": "mb_1_3", "item": "/assets/work/sushi/sushi5.png" }
+                { "id": "mb_1_1", "item": "/assets/work/sushi/sushi3.webp", "alt": "SUSHI 模型首頁" },
+                { "id": "mb_1_2", "item": "/assets/work/sushi/sushi4.webp", "alt": "SUSHI 菜單" },
+                { "id": "mb_1_3", "item": "/assets/work/sushi/sushi5.webp", "alt": "SUSHI 結帳" }
             ]
         }
     },
@@ -104,14 +104,14 @@
         ],
         "pics": {
             "desktop": [
-                { "id": "pc_6_1", "item": "/assets/work/plugin/plugin1.png" },
-                { "id": "pc_6_2", "item": "/assets/work/plugin/plugin2.png" },
-                { "id": "pc_6_3", "item": "/assets/work/plugin/plugin3.png" }
+                { "id": "pc_6_1", "item": "/assets/work/plugin/plugin1.webp", "alt": "Panotour Pro Plugin 首頁"  },
+                { "id": "pc_6_2", "item": "/assets/work/plugin/plugin2.webp", "alt": "Panotour Pro Plugin sidebar plugin"  },
+                { "id": "pc_6_3", "item": "/assets/work/plugin/plugin3.webp", "alt": "Panotour Pro Plugin 教學"  }
             ],
             "mobile": [
-                { "id": "mb_6_1", "item": "/assets/work/plugin/plugin4.png" },
-                { "id": "mb_6_2", "item": "/assets/work/plugin/plugin5.png" },
-                { "id": "mb_6_3", "item": "/assets/work/plugin/plugin6.png" }
+                { "id": "mb_6_1", "item": "/assets/work/plugin/plugin4.webp", "alt": "Panotour Pro Plugin 首頁"  },
+                { "id": "mb_6_2", "item": "/assets/work/plugin/plugin5.webp", "alt": "Panotour Pro Plugin plugin"  },
+                { "id": "mb_6_3", "item": "/assets/work/plugin/plugin6.webp", "alt": "Panotour Pro Plugin 教學"  }
             ]
         }
     },
@@ -126,11 +126,11 @@
         ],
         "pics": {
             "desktop": [
-                { "id": "pc_2_1", "item": "/assets/work/gmdss/gmdss1.png" },
-                { "id": "pc_2_2", "item": "/assets/work/gmdss/gmdss2.png" },
-                { "id": "pc_2_3", "item": "/assets/work/gmdss/gmdss3.png" },
-                { "id": "pc_2_4", "item": "/assets/work/gmdss/gmdss4.png" },
-                { "id": "pc_2_5", "item": "/assets/work/gmdss/gmdss5.png" }
+                { "id": "pc_2_1", "item": "/assets/work/gmdss/gmdss1.webp", "alt": "GMDSS 船隻" },
+                { "id": "pc_2_2", "item": "/assets/work/gmdss/gmdss2.webp", "alt": "GMDSS INMARSAT-C" },
+                { "id": "pc_2_3", "item": "/assets/work/gmdss/gmdss3.webp", "alt": "GMDSS F77" },
+                { "id": "pc_2_4", "item": "/assets/work/gmdss/gmdss4.webp", "alt": "GMDSS AIS-SART" },
+                { "id": "pc_2_5", "item": "/assets/work/gmdss/gmdss5.webp", "alt": "GMDSS 教師主控台" }
             ]
         }
     },
@@ -147,19 +147,23 @@
             "desktop": [
                 {
                     "id": "pc_3_1",
-                    "item": "/assets/work/deepocean/deepocean1.png"
+                    "item": "/assets/work/deepocean/deepocean1.webp"
+                    , "alt": "藏藍回音 第一關" 
                 },
                 {
                     "id": "pc_3_2",
-                    "item": "/assets/work/deepocean/deepocean2.png"
+                    "item": "/assets/work/deepocean/deepocean2.webp"
+                    , "alt": "藏藍回音 第二關" 
                 },
                 {
                     "id": "pc_3_3",
-                    "item": "/assets/work/deepocean/deepocean3.png"
+                    "item": "/assets/work/deepocean/deepocean3.webp"
+                    , "alt": "藏藍回音 第三關" 
                 },
                 {
                     "id": "pc_3_4",
-                    "item": "/assets/work/deepocean/deepocean4.png"
+                    "item": "/assets/work/deepocean/deepocean4.webp"
+                    , "alt": "藏藍回音 第三關復活" 
                 }
             ]
         }
@@ -180,23 +184,28 @@
             "desktop": [
                 {
                     "id": "pc_4_1",
-                    "item": "/assets/work/nursingworkcar/nursingworkcar1.png"
+                    "item": "/assets/work/nursingworkcar/nursingworkcar1.webp"
+                    , "alt": "護理工作車(評估、護理紀畫) 身體評估" 
                 },
                 {
                     "id": "pc_4_2",
-                    "item": "/assets/work/nursingworkcar/nursingworkcar2.png"
+                    "item": "/assets/work/nursingworkcar/nursingworkcar2.webp",
+                    "alt": "護理工作車(評估、護理紀畫) 每日評估" 
                 },
                 {
                     "id": "pc_4_3",
-                    "item": "/assets/work/nursingworkcar/nursingworkcar3.png"
+                    "item": "/assets/work/nursingworkcar/nursingworkcar3.webp",
+                    "alt": "護理工作車(評估、護理紀畫) 血糖注射" 
                 },
                 {
                     "id": "pc_4_4",
-                    "item": "/assets/work/nursingworkcar/nursingworkcar4.png"
+                    "item": "/assets/work/nursingworkcar/nursingworkcar4.webp",
+                    "alt": "護理工作車(評估、護理紀畫) 生命指數報表" 
                 },
                 {
                     "id": "pc_4_5",
-                    "item": "/assets/work/nursingworkcar/nursingworkcar5.png"
+                    "item": "/assets/work/nursingworkcar/nursingworkcar5.webp",
+                    "alt": "護理工作車(評估、護理紀畫) 病人管理" 
                 }
             ]
         }
@@ -217,11 +226,13 @@
             "desktop": [
                 {
                     "id": "pc_5_1",
-                    "item": "/assets/work/officialcar/officialcar1.png"
+                    "item": "/assets/work/officialcar/officialcar1.webp",
+                    "alt": "公務車申請系統 申請單" 
                 },
                 {
                     "id": "pc_5_2",
-                    "item": "/assets/work/officialcar/officialcar2.png"
+                    "item": "/assets/work/officialcar/officialcar2.webp",
+                    "alt": "公務車申請系統 車輛狀況"
                 }
             ]
         }

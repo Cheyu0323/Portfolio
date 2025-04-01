@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import workList from "@/public/workList.json";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import useCursorStore from "@/store/cursorStore";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
@@ -108,8 +107,8 @@ const Work = () => {
                 <div className="mt-3 w-full flex flex-col gap-y-3 max-w-5xl m-auto">
                     {findWork.pics.desktop.map((item) => (
                         <div key={item.id} className="shadow-md">
-                            <Image
-                                alt={item.id}
+                            <img
+                                alt={item.alt}
                                 src={item.item}
                                 width={0}
                                 height={0}
@@ -123,8 +122,8 @@ const Work = () => {
                     {findWork.pics.mobile != null &&
                         findWork.pics.mobile.map((item) => (
                             <div key={item.id} className="shadow-md">
-                                <Image
-                                    alt={item.id}
+                                <img
+                                    alt={item.alt}
                                     src={item.item}
                                     width={0}
                                     height={0}
