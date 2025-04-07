@@ -16,7 +16,7 @@ const Works = () => {
     if (currentClick != "works") return <></>;
     return (
         <>
-            <title>{`張哲瑜 作品集 - Works`}</title>
+            <title>{`張哲瑜 | 前端工程師作品集 - Works`}</title>
             <GoogleAnalytics gaId="G-EPLTFP1W3H" />
 
             <main className="h-full z-20 relative overflow-scroll opacity-0 animate-opacity delay-300">
