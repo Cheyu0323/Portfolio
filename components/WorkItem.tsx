@@ -31,7 +31,7 @@ const WorkItem: React.FC<WorkItemProps> = ({ name, title, url, pics }) => {
     };
     return (
         <div className="w-full flex flex-col">
-            <div className="w-full h-full table group">
+            <div className="w-full h-full table group shadow-md">
                 <div
                     className={`${
                         pics.mobile != null ? "w-9/12" : "w-12/12"
