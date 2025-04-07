@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     icons: {
         icon: "/favicon.ico",
     },
-    title: "張哲瑜 - 作品集",
+    title: "張哲瑜 作品集",
     verification: {
         google: "Uw8Um7WPleUknL2B4Q-pkcDno48H1njl2JcaCAHi5Rg",
     },

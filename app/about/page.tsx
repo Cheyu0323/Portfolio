@@ -16,7 +16,7 @@ const About = () => {
     if (currentClick != "about") return <></>;
     return (
         <>
-            <title>{`張哲瑜 Portfolio - About`}</title>
+            <title>{`張哲瑜 作品集 - About`}</title>
             <GoogleAnalytics gaId="G-EPLTFP1W3H" />
             <main className="h-full z-20 relative overflow-scroll opacity-0 animate-opacity delay-300">
                 <div className="h-full flex flex-col gap-y-4 justify-center px-2 max-w-3xl">
