@@ -1,5 +1,6 @@
 "use client";
-import Link from "next/link";
+
+import TransitionLink from "@/components/TransitionLink";
 import useCursorStore from "@/store/cursorStore";
 import { trackProjectClick, trackProjectExternalClick } from "@/lib/analytics";
 
@@ -11,39 +12,56 @@ type WorkItemProps = {
     projectUrl?: string;
     technologies: string[];
     images: {
-        desktop: Array<{ src: string; alt: string }>;
-        mobile?: Array<{ src: string; alt: string }>;
+        desktop: Array<{
+            src: string;
+            alt: string;
+        }>;
+        mobile?: Array<{
+            src: string;
+            alt: string;
+        }>;
     };
 };
+
 const WorkItem = ({ slug, title, projectUrl, images }: WorkItemProps) => {
     const handleIsHover = useCursorStore().handleIsHover;
+
     const handleMouseEnter = () => {
         handleIsHover(true);
     };
+
     const handleMouseLeave = () => {
         handleIsHover(false);
     };
+
     const handleProjectClick = () => {
         trackProjectClick(title, slug);
 
         handleMouseLeave();
     };
+
     const handleExternalClick = () => {
         if (projectUrl) {
             trackProjectExternalClick(title, slug, projectUrl);
         }
+
         handleMouseLeave();
     };
+
     const workUrl = `/works/${slug}`;
+
     const desktopCover = images.desktop[0]?.src;
+
     const mobileCover = images.mobile?.[0]?.src;
+
     const hasMobile = Boolean(images.mobile?.length && mobileCover);
+
     return (
         <article className="w-full flex flex-col">
             <div className="w-full h-full table group shadow-md">
-                <Link
+                <TransitionLink
                     href={workUrl}
-                    aria-label={`查看 ${title} 專案`}
+                    ariaLabel={`查看 ${title} 專案`}
                     className={`${
                         hasMobile ? "w-9/12" : "w-12/12"
                     } h-full table-cell`}
@@ -59,11 +77,12 @@ const WorkItem = ({ slug, title, projectUrl, images }: WorkItemProps) => {
                                 : undefined,
                         }}
                     />
-                </Link>
+                </TransitionLink>
+
                 {hasMobile && mobileCover && (
-                    <Link
+                    <TransitionLink
                         href={workUrl}
-                        aria-label={`查看 ${title} 專案`}
+                        ariaLabel={`查看 ${title} 專案`}
                         className="w-3/12 h-full table-cell"
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
@@ -71,14 +90,17 @@ const WorkItem = ({ slug, title, projectUrl, images }: WorkItemProps) => {
                     >
                         <div
                             className="pt-[180%] ml-[3%] bg-center bg-cover relative before:absolute before:w-full before:h-full before:top-0 before:left-0 group-hover:before:bg-black/40 before:duration-500 after:content-['VIEW'] after:opacity-0 after:tracking-tighter after:font-bold after:text-white after:absolute after:top-1/2 after:-translate-y-1/2 after:left-1/2 after:-translate-x-1/2 group-hover:after:opacity-100 group-hover:after:tracking-widest after:duration-500"
-                            style={{ backgroundImage: `url(${mobileCover})` }}
+                            style={{
+                                backgroundImage: `url(${mobileCover})`,
+                            }}
                         />
-                    </Link>
+                    </TransitionLink>
                 )}
             </div>
+
             <div className="flex flex-row gap-x-1 items-center mt-3 font-semibold tracking-wider relative">
                 <h2>
-                    <Link
+                    <TransitionLink
                         href={workUrl}
                         className="hover:text-font_dark duration-150"
                         onMouseEnter={handleMouseEnter}
@@ -86,8 +108,9 @@ const WorkItem = ({ slug, title, projectUrl, images }: WorkItemProps) => {
                         onClick={handleProjectClick}
                     >
                         {title}
-                    </Link>
+                    </TransitionLink>
                 </h2>
+
                 {projectUrl && (
                     <a
                         href={projectUrl}
@@ -111,7 +134,8 @@ const WorkItem = ({ slug, title, projectUrl, images }: WorkItemProps) => {
                                 aria-hidden="true"
                             >
                                 <path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6" />
-                                <path d="m21 3-9 9" /> <path d="M15 3h6v6" />
+                                <path d="m21 3-9 9" />
+                                <path d="M15 3h6v6" />
                             </svg>
                         </div>
                     </a>
@@ -120,4 +144,5 @@ const WorkItem = ({ slug, title, projectUrl, images }: WorkItemProps) => {
         </article>
     );
 };
+
 export default WorkItem;

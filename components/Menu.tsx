@@ -1,45 +1,32 @@
 "use client";
 
-import {
-    useEffect,
-    useRef,
-} from "react";
-
-import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
+import TransitionLink from "@/components/TransitionLink";
 import useCursorStore from "@/store/cursorStore";
 import usePageStore from "@/store/pageStore";
-
-import {
-    trackNavigationClick,
-} from "@/lib/analytics";
+import { trackNavigationClick } from "@/lib/analytics";
 
 const Menu = () => {
-    const menuRef =
-        useRef<HTMLUListElement>(null);
+    const menuRef = useRef<HTMLUListElement | null>(null);
 
-    const {
-        isMenuDisplay,
-        handleRouteChange,
-    } = usePageStore();
+    const { isMenuDisplay, handleRouteChange } = usePageStore();
 
     const pathname = usePathname();
 
-    const handleIsHover =
-        useCursorStore().handleIsHover;
+    const handleIsHover = useCursorStore().handleIsHover;
 
-    /*
-     * =================================
-     * Route → Zustand
-     * =================================
-     *
-     * pathname 真正變更後，
-     * 才同步 Page Store + 關閉 Menu。
-     */
+    const handleMouseEnter = () => {
+        handleIsHover(true);
+    };
+
+    const handleMouseLeave = () => {
+        handleIsHover(false);
+    };
+
     useEffect(() => {
         if (pathname === "/") {
             handleRouteChange("/");
@@ -51,31 +38,29 @@ const Menu = () => {
             return;
         }
 
-        if (
-            pathname.startsWith(
-                "/works",
-            )
-        ) {
+        if (pathname.startsWith("/works")) {
             handleRouteChange("works");
         }
-    }, [
-        pathname,
-        handleRouteChange,
-    ]);
-
-    const handleMouseEnter = () => {
-        handleIsHover(true);
-    };
-
-    const handleMouseLeave = () => {
-        handleIsHover(false);
-    };
+    }, [pathname, handleRouteChange]);
 
     useGSAP(
         () => {
+            const menu = menuRef.current;
+
+            if (!menu) {
+                return;
+            }
+
             if (!isMenuDisplay) {
                 return;
             }
+
+            gsap.killTweensOf(menu);
+
+            gsap.set(menu, {
+                opacity: 1,
+                pointerEvents: "auto",
+            });
 
             gsap.timeline()
                 .from("#home", {
@@ -103,193 +88,103 @@ const Menu = () => {
                 );
         },
         {
-            dependencies: [
-                isMenuDisplay,
-            ],
-
+            dependencies: [isMenuDisplay],
             scope: menuRef,
         },
     );
 
-    const handleMenuClick = (
-        page:
-            | "/"
-            | "about"
-            | "works",
+    const handleMenuClick = (page: "/" | "about" | "works", label: string) => {
+        const destination = page === "/" ? "/" : `/${page}`;
 
-        label: string,
-    ) => {
-        const destination =
-            page === "/"
-                ? "/"
-                : `/${page}`;
+        const menu = menuRef.current;
 
-        /*
-         * 非常重要：
-         *
-         * 這裡不關 Menu。
-         * 這裡也不改 currentClick。
-         *
-         * 等 Link 導航完成，
-         * pathname effect 再處理。
-         */
+        if (menu) {
+            gsap.killTweensOf(menu);
 
-        trackNavigationClick(
-            label.toLowerCase(),
-            destination,
-        );
+            gsap.to(menu, {
+                opacity: 0,
+                duration: 0.15,
+                ease: "power2.out",
+                pointerEvents: "none",
+            });
+        }
+
+        trackNavigationClick(label.toLowerCase(), destination);
 
         handleMouseLeave();
     };
 
-    const isHomePage =
-        pathname === "/";
+    const isHomePage = pathname === "/";
 
-    const isAboutPage =
-        pathname === "/about";
+    const isAboutPage = pathname === "/about";
 
-    const isWorksPage =
-        pathname.startsWith(
-            "/works",
-        );
+    const isWorksPage = pathname.startsWith("/works");
 
     return (
         <nav aria-label="主要導覽">
             <ul
                 ref={menuRef}
-                className={`
-                    absolute
-                    z-10
-                    top-1/2
-                    left-1/2
-                    -translate-x-1/2
-                    -translate-y-1/2
-
-                    flex
-                    flex-col
-                    gap-y-4
-                    items-center
-                    justify-center
-
-                    tracking-[0.4rem]
-                    font-normal
-                    text-[15px]
-
-                    duration-150
-
-                    ${
-                        isMenuDisplay
-                            ? "opacity-100 pointer-events-auto"
-                            : "opacity-0 pointer-events-none"
-                    }
-                `}
+                className={`absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-y-4 items-center justify-center tracking-[0.4rem] font-normal text-[15px] ${
+                    isMenuDisplay
+                        ? "opacity-100 pointer-events-auto"
+                        : "opacity-0 pointer-events-none"
+                }`}
             >
                 <li>
-                    <Link
+                    <TransitionLink
                         href="/"
                         id="home"
-                        aria-current={
-                            isHomePage
-                                ? "page"
-                                : undefined
-                        }
-                        tabIndex={
-                            isMenuDisplay
-                                ? 0
-                                : -1
-                        }
+                        ariaCurrent={isHomePage ? "page" : undefined}
+                        tabIndex={isMenuDisplay ? 0 : -1}
                         className={
                             isHomePage
                                 ? "line-through decoration-[1.5px] pointer-events-none"
                                 : ""
                         }
-                        onMouseEnter={
-                            handleMouseEnter
-                        }
-                        onMouseLeave={
-                            handleMouseLeave
-                        }
-                        onClick={() =>
-                            handleMenuClick(
-                                "/",
-                                "Home",
-                            )
-                        }
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        onClick={() => handleMenuClick("/", "Home")}
                     >
                         HOME
-                    </Link>
+                    </TransitionLink>
                 </li>
 
                 <li>
-                    <Link
+                    <TransitionLink
                         href="/about"
                         id="about"
-                        aria-current={
-                            isAboutPage
-                                ? "page"
-                                : undefined
-                        }
-                        tabIndex={
-                            isMenuDisplay
-                                ? 0
-                                : -1
-                        }
+                        ariaCurrent={isAboutPage ? "page" : undefined}
+                        tabIndex={isMenuDisplay ? 0 : -1}
                         className={
                             isAboutPage
                                 ? "line-through decoration-[1.5px] pointer-events-none"
                                 : ""
                         }
-                        onMouseEnter={
-                            handleMouseEnter
-                        }
-                        onMouseLeave={
-                            handleMouseLeave
-                        }
-                        onClick={() =>
-                            handleMenuClick(
-                                "about",
-                                "About",
-                            )
-                        }
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        onClick={() => handleMenuClick("about", "About")}
                     >
                         ABOUT
-                    </Link>
+                    </TransitionLink>
                 </li>
 
                 <li>
-                    <Link
+                    <TransitionLink
                         href="/works"
                         id="works"
-                        aria-current={
-                            isWorksPage
-                                ? "page"
-                                : undefined
-                        }
-                        tabIndex={
-                            isMenuDisplay
-                                ? 0
-                                : -1
-                        }
+                        ariaCurrent={isWorksPage ? "page" : undefined}
+                        tabIndex={isMenuDisplay ? 0 : -1}
                         className={
                             isWorksPage
                                 ? "line-through decoration-[1.5px] pointer-events-none"
                                 : ""
                         }
-                        onMouseEnter={
-                            handleMouseEnter
-                        }
-                        onMouseLeave={
-                            handleMouseLeave
-                        }
-                        onClick={() =>
-                            handleMenuClick(
-                                "works",
-                                "Works",
-                            )
-                        }
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                        onClick={() => handleMenuClick("works", "Works")}
                     >
                         WORKS
-                    </Link>
+                    </TransitionLink>
                 </li>
             </ul>
         </nav>
