@@ -74,7 +74,7 @@ export default function RootLayout({
     return (
         <html lang="zh-Hant">
             <body
-                className={`${notoSansTC.className} bg-background/30 h-svh relative`}
+                className={`${notoSansTC.className} bg-background/30 h-svh relative overflow-hidden`}
             >
                 <PageTransition>
                     <Header />
@@ -86,7 +86,7 @@ export default function RootLayout({
                     <Scene />
 
                     <PageTransitionContent>
-                        <div className="w-11/12 max-w-7xl m-auto h-[calc(100%_-_5.5rem)]">
+                        <div className="w-11/12 max-w-7xl m-auto h-full">
                             {children}
                         </div>
                     </PageTransitionContent>

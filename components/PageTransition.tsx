@@ -167,7 +167,7 @@ export const PageTransitionContent = ({
     }
 
     return (
-        <div ref={context.containerRef} className="h-full">
+        <div ref={context.containerRef} className="h-[calc(100%_-_5.5rem)]">
             {children}
         </div>
     );
