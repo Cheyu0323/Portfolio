@@ -51,11 +51,16 @@ const Menu = () => {
                 return;
             }
 
+            gsap.killTweensOf(menu);
+
             if (!isMenuDisplay) {
+                gsap.set(menu, {
+                    opacity: 0,
+                    pointerEvents: "none",
+                });
+
                 return;
             }
-
-            gsap.killTweensOf(menu);
 
             gsap.set(menu, {
                 opacity: 1,
