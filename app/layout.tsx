@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_TC } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import "./globals.css";
 import CursorPoint from "@/components/CursorPoint";
@@ -7,18 +8,38 @@ import Header from "@/components/Header";
 import Scene from "@/components/Scene";
 import Menu from "@/components/Menu";
 
-// If loading a variable font, you don't need to specify the font weight
-const inter = Noto_Sans_TC({ subsets: ["latin"] });
+const notoSansTC = Noto_Sans_TC({
+    subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-    icons: {
-        icon: "/favicon.ico",
-    },
-    title: "張哲瑜 | 前端工程師作品集",
-    verification: {
-        google: "Uw8Um7WPleUknL2B4Q-pkcDno48H1njl2JcaCAHi5Rg",
+    metadataBase: new URL("https://cheyu-portfolio.vercel.app"),
+    icons: { icon: "/favicon.ico" },
+    title: {
+        default: "張哲瑜 Cheyu｜副資料工程師・前端工程師作品集",
+        template: "%s｜張哲瑜 Cheyu",
     },
     description:
-        "張哲瑜，是一名前端工程師，擁有豐富的網頁前端開發和 Unity 遊戲引擎開發經驗。我專注於精緻的網頁設計與開發，熟悉 React、Next.js、WebGL 等技術，並致力於創造創新且互動性強的網頁應用。",
+        "張哲瑜（Cheyu），現任鼎漢國際工程顧問股份有限公司副資料工程師，具備 React、Next.js、WebGL、Python、Flask、API 開發與資料庫相關開發經驗。",
+    authors: [{ name: "張哲瑜" }],
+    creator: "張哲瑜",
+    alternates: { canonical: "/" },
+    verification: { google: "Uw8Um7WPleUknL2B4Q-pkcDno48H1njl2JcaCAHi5Rg" },
+    openGraph: {
+        type: "website",
+        locale: "zh_TW",
+        url: "/",
+        siteName: "張哲瑜 Cheyu Portfolio",
+        title: "張哲瑜 Cheyu｜副資料工程師・前端工程師作品集",
+        description:
+            "張哲瑜（Cheyu）的個人作品集，包含前端開發、WebGL、Python、Flask、資料庫與系統整合相關經驗。",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "張哲瑜 Cheyu｜副資料工程師・前端工程師作品集",
+        description:
+            "張哲瑜（Cheyu）的個人作品集，包含前端開發、WebGL、Python、Flask、資料庫與系統整合相關經驗。",
+    },
 };
 
 export default function RootLayout({
@@ -27,18 +48,21 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="zh-Hant">
             <body
-                className={`${inter.className} bg-background/30 h-svh relative`}
+                className={`${notoSansTC.className} bg-background/30 h-svh relative`}
             >
                 <Header />
                 <Menu />
                 <CursorPoint />
                 <Scene />
+
                 <div className="w-11/12 max-w-7xl m-auto h-[calc(100%_-_5.5rem)]">
                     {children}
                 </div>
             </body>
+
+            <GoogleAnalytics gaId="G-EPLTFP1W3H" />
         </html>
     );
 }

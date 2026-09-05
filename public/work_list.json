@@ -1,0 +1,292 @@
+[
+    {
+        "id": 9,
+        "slug": "vr-bim",
+        "title": "BIM",
+        "categories": ["design"],
+        "projectUrl": "https://vr-bim.vercel.app/",
+        "technologies": ["Next.js", "Three.js", "Tailwind CSS"],
+        "images": {
+            "desktop": [
+                {
+                    "src": "/assets/work/bim/bim.webp",
+                    "alt": "BIM 建築模型正面視角"
+                },
+                {
+                    "src": "/assets/work/bim/bim1.webp",
+                    "alt": "BIM 建築模型二樓俯視圖"
+                },
+                {
+                    "src": "/assets/work/bim/bim2.webp",
+                    "alt": "BIM 建築模型一樓環景視角"
+                }
+            ],
+            "mobile": [
+                {
+                    "src": "/assets/work/bim/bim3.webp",
+                    "alt": "BIM 建築模型手機版正面視角"
+                },
+                {
+                    "src": "/assets/work/bim/bim4.webp",
+                    "alt": "BIM 建築模型手機版二樓俯視圖"
+                },
+                {
+                    "src": "/assets/work/bim/bim5.webp",
+                    "alt": "BIM 建築模型管線透視畫面"
+                }
+            ]
+        }
+    },
+    {
+        "id": 8,
+        "slug": "bus-gis",
+        "title": "台北雙層觀光巴士紅線路線圖 - Cesium 3D 互動展示",
+        "categories": ["design"],
+        "projectUrl": "https://bus-gis.vercel.app/",
+        "technologies": ["Next.js", "CesiumJS", "Tailwind CSS"],
+        "images": {
+            "desktop": [
+                {
+                    "src": "/assets/work/bus_gis/bus-gis.webp",
+                    "alt": "台北雙層觀光巴士紅線路線全視圖"
+                },
+                {
+                    "src": "/assets/work/bus_gis/bus-gis1.webp",
+                    "alt": "台北雙層觀光巴士紅線低空視角"
+                },
+                {
+                    "src": "/assets/work/bus_gis/bus-gis2.webp",
+                    "alt": "台北雙層觀光巴士路線台北 101 三維模型"
+                }
+            ],
+            "mobile": [
+                {
+                    "src": "/assets/work/bus_gis/bus-gis5.webp",
+                    "alt": "台北雙層觀光巴士跟隨巴士視角"
+                },
+                {
+                    "src": "/assets/work/bus_gis/bus-gis3.webp",
+                    "alt": "台北雙層觀光巴士路線清單"
+                },
+                {
+                    "src": "/assets/work/bus_gis/bus-gis4.webp",
+                    "alt": "台北雙層觀光巴士台北 101 手機版三維模型"
+                }
+            ]
+        }
+    },
+    {
+        "id": 7,
+        "slug": "seaweed",
+        "title": "海草家居",
+        "categories": ["design"],
+        "projectUrl": "https://cheyu0323.github.io/seaweed-house/",
+        "technologies": ["Next.js", "Tailwind CSS"],
+        "images": {
+            "desktop": [
+                {
+                    "src": "/assets/work/swaweed/swaweed1.webp",
+                    "alt": "海草家居首頁"
+                },
+                {
+                    "src": "/assets/work/swaweed/swaweed2.webp",
+                    "alt": "海草家居實際案例頁面"
+                }
+            ],
+            "mobile": [
+                {
+                    "src": "/assets/work/swaweed/swaweed3.webp",
+                    "alt": "海草家居個案詳細資料"
+                },
+                {
+                    "src": "/assets/work/swaweed/swaweed4.webp",
+                    "alt": "海草家居手機版實際案例"
+                },
+                {
+                    "src": "/assets/work/swaweed/swaweed5.webp",
+                    "alt": "海草家居手機版首頁"
+                }
+            ]
+        }
+    },
+    {
+        "id": 1,
+        "slug": "sushi",
+        "title": "SUSHI SHOP",
+        "categories": ["cover"],
+        "projectUrl": "https://cheyu0323.github.io/SUSHI/",
+        "technologies": ["React", "Three.js", "GSAP"],
+        "images": {
+            "desktop": [
+                {
+                    "src": "/assets/work/sushi/sushi1.webp",
+                    "alt": "SUSHI SHOP 3D 模型首頁"
+                },
+                {
+                    "src": "/assets/work/sushi/sushi2.webp",
+                    "alt": "SUSHI SHOP 菜單頁面"
+                }
+            ],
+            "mobile": [
+                {
+                    "src": "/assets/work/sushi/sushi3.webp",
+                    "alt": "SUSHI SHOP 手機版 3D 模型首頁"
+                },
+                {
+                    "src": "/assets/work/sushi/sushi4.webp",
+                    "alt": "SUSHI SHOP 手機版菜單"
+                },
+                {
+                    "src": "/assets/work/sushi/sushi5.webp",
+                    "alt": "SUSHI SHOP 手機版結帳頁面"
+                }
+            ]
+        }
+    },
+    {
+        "id": 6,
+        "slug": "panotour-pro-plugin",
+        "title": "Panotour Pro Plugin",
+        "categories": ["design"],
+        "projectUrl": "https://cheyu0323.github.io/CYs_PanotourPro_Plugin/",
+        "technologies": ["React", "Material UI"],
+        "images": {
+            "desktop": [
+                {
+                    "src": "/assets/work/plugin/plugin1.webp",
+                    "alt": "Panotour Pro Plugin 首頁"
+                },
+                {
+                    "src": "/assets/work/plugin/plugin2.webp",
+                    "alt": "Panotour Pro Plugin 側邊欄外掛"
+                },
+                {
+                    "src": "/assets/work/plugin/plugin3.webp",
+                    "alt": "Panotour Pro Plugin 教學頁面"
+                }
+            ],
+            "mobile": [
+                {
+                    "src": "/assets/work/plugin/plugin4.webp",
+                    "alt": "Panotour Pro Plugin 手機版首頁"
+                },
+                {
+                    "src": "/assets/work/plugin/plugin5.webp",
+                    "alt": "Panotour Pro Plugin 手機版外掛頁面"
+                },
+                {
+                    "src": "/assets/work/plugin/plugin6.webp",
+                    "alt": "Panotour Pro Plugin 手機版教學頁面"
+                }
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "slug": "gmdss",
+        "title": "GMDSS",
+        "categories": ["school"],
+        "technologies": ["Unity", "Photon"],
+        "images": {
+            "desktop": [
+                {
+                    "src": "/assets/work/gmdss/gmdss1.webp",
+                    "alt": "GMDSS 船舶模擬場景"
+                },
+                {
+                    "src": "/assets/work/gmdss/gmdss2.webp",
+                    "alt": "GMDSS INMARSAT-C 模擬設備"
+                },
+                {
+                    "src": "/assets/work/gmdss/gmdss3.webp",
+                    "alt": "GMDSS F77 模擬設備"
+                },
+                {
+                    "src": "/assets/work/gmdss/gmdss4.webp",
+                    "alt": "GMDSS AIS-SART 模擬設備"
+                },
+                {
+                    "src": "/assets/work/gmdss/gmdss5.webp",
+                    "alt": "GMDSS 教師主控台"
+                }
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "slug": "deep-ocean",
+        "title": "藏藍回音",
+        "categories": ["school"],
+        "technologies": ["Unity", "VR"],
+        "images": {
+            "desktop": [
+                {
+                    "src": "/assets/work/deepocean/deepocean1.webp",
+                    "alt": "藏藍回音第一關遊戲畫面"
+                },
+                {
+                    "src": "/assets/work/deepocean/deepocean2.webp",
+                    "alt": "藏藍回音第二關遊戲畫面"
+                },
+                {
+                    "src": "/assets/work/deepocean/deepocean3.webp",
+                    "alt": "藏藍回音第三關遊戲畫面"
+                },
+                {
+                    "src": "/assets/work/deepocean/deepocean4.webp",
+                    "alt": "藏藍回音第三關復活畫面"
+                }
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "slug": "nursing-workstation",
+        "title": "護理工作車（評估、護理計畫）",
+        "categories": ["school"],
+        "technologies": ["HTML", "CSS", "JavaScript", "PHP 5", "MySQL"],
+        "images": {
+            "desktop": [
+                {
+                    "src": "/assets/work/nursingworkcar/nursingworkcar1.webp",
+                    "alt": "護理工作車身體評估頁面"
+                },
+                {
+                    "src": "/assets/work/nursingworkcar/nursingworkcar2.webp",
+                    "alt": "護理工作車每日評估頁面"
+                },
+                {
+                    "src": "/assets/work/nursingworkcar/nursingworkcar3.webp",
+                    "alt": "護理工作車血糖注射紀錄頁面"
+                },
+                {
+                    "src": "/assets/work/nursingworkcar/nursingworkcar4.webp",
+                    "alt": "護理工作車生命指數報表"
+                },
+                {
+                    "src": "/assets/work/nursingworkcar/nursingworkcar5.webp",
+                    "alt": "護理工作車病人管理頁面"
+                }
+            ]
+        }
+    },
+    {
+        "id": 5,
+        "slug": "official-car",
+        "title": "公務車申請系統",
+        "categories": ["school"],
+        "technologies": ["HTML", "CSS", "JavaScript", "PHP 5", "MySQL"],
+        "images": {
+            "desktop": [
+                {
+                    "src": "/assets/work/officialcar/officialcar1.webp",
+                    "alt": "公務車申請系統申請單"
+                },
+                {
+                    "src": "/assets/work/officialcar/officialcar2.webp",
+                    "alt": "公務車申請系統車輛狀況頁面"
+                }
+            ]
+        }
+    }
+]
