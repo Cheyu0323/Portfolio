@@ -25,8 +25,8 @@ export const metadata: Metadata = {
     },
 
     title: {
-        default: "張哲瑜 Cheyu｜前端工程師作品集",
-        template: "%s｜張哲瑜 Cheyu",
+        default: "張哲瑜｜前端工程師作品集",
+        template: "%s｜張哲瑜｜前端工程師作品集",
     },
 
     description:

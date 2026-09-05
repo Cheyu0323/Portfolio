@@ -6,7 +6,7 @@ import workList from "@/public/work_list.json";
 import WorksVisibility from "./WorksVisibility";
 
 export const metadata: Metadata = {
-    title: "作品集｜張哲瑜 Cheyu",
+    title: "作品集",
     description:
         "張哲瑜（Cheyu）的個人作品集，包含 React、Next.js、Three.js、Cesium、WebGL、Unity 等前端、3D 互動與系統開發專案。",
     alternates: {

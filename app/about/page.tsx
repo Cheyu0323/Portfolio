@@ -3,7 +3,7 @@ import ScrollDown from "@/components/ScrollDown";
 import AboutVisibility from "./AboutVisibility";
 
 export const metadata: Metadata = {
-    title: "關於張哲瑜｜前端工程師作品集",
+    title: "關於我",
     description:
         "張哲瑜（Cheyu），現任鼎漢國際工程顧問股份有限公司副資料分析師，具備 React、Next.js、WebGL、API 開發、資料庫規劃與資料排程自動化等系統開發經驗。",
     alternates: {

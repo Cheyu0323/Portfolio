@@ -26,7 +26,7 @@ export function generateMetadata({ params }: WorkPageProps): Metadata {
             locale: "zh_TW",
             url: `/works/${work.slug}`,
             siteName: "張哲瑜 Cheyu Portfolio",
-            title: `${work.title}｜張哲瑜 Cheyu`,
+            title: `${work.title}｜張哲瑜`,
             description,
             images: coverImage
                 ? [{ url: coverImage, alt: work.images.desktop[0].alt }]
@@ -34,7 +34,7 @@ export function generateMetadata({ params }: WorkPageProps): Metadata {
         },
         twitter: {
             card: "summary_large_image",
-            title: `${work.title}｜張哲瑜 Cheyu`,
+            title: `${work.title}｜張哲瑜`,
             description,
             images: coverImage ? [coverImage] : undefined,
         },
