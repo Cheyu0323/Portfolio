@@ -8,15 +8,13 @@ import { useGSAP } from "@gsap/react";
 
 import useCursorStore from "@/store/cursorStore";
 import usePageStore from "@/store/pageStore";
+import { trackNavigationClick } from "@/lib/analytics";
 
 const Menu = () => {
     const menuRef = useRef<HTMLUListElement>(null);
 
-    const {
-        isMenuDisplay,
-        handleIsMenuDisplay,
-        handelSetCurrentClick,
-    } = usePageStore();
+    const { isMenuDisplay, handleIsMenuDisplay, handelSetCurrentClick } =
+        usePageStore();
 
     const pathname = usePathname();
 
@@ -47,7 +45,7 @@ const Menu = () => {
                         opacity: 0,
                         duration: 0.5,
                     },
-                    ">-.3",
+                    ">-.3"
                 )
                 .from(
                     "#works",
@@ -56,26 +54,21 @@ const Menu = () => {
                         opacity: 0,
                         duration: 0.5,
                     },
-                    ">-.3",
+                    ">-.3"
                 );
         },
         {
             dependencies: [isMenuDisplay],
             scope: menuRef,
-        },
+        }
     );
 
-    const handleMenuClick = (
-    page: "/" | "about" | "works",
-        label: string,
-    ) => {
+    const handleMenuClick = (page: "/" | "about" | "works", label: string) => {
         handleIsMenuDisplay(false);
         handelSetCurrentClick(page);
+        const destination = page === "/" ? "/" : `/${page}`;
 
-        window.gtag?.("event", "click", {
-            category: "清單",
-            label,
-        });
+        trackNavigationClick(label.toLowerCase(), destination);
 
         handleMouseLeave();
     };
@@ -98,9 +91,7 @@ const Menu = () => {
                     <Link
                         href="/"
                         id="home"
-                        aria-current={
-                            isHomePage ? "page" : undefined
-                        }
+                        aria-current={isHomePage ? "page" : undefined}
                         tabIndex={isMenuDisplay ? 0 : -1}
                         className={
                             isHomePage
@@ -109,9 +100,7 @@ const Menu = () => {
                         }
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
-                        onClick={() =>
-                            handleMenuClick("/", "Home")
-                        }
+                        onClick={() => handleMenuClick("/", "Home")}
                     >
                         HOME
                     </Link>
@@ -121,9 +110,7 @@ const Menu = () => {
                     <Link
                         href="/about"
                         id="about"
-                        aria-current={
-                            isAboutPage ? "page" : undefined
-                        }
+                        aria-current={isAboutPage ? "page" : undefined}
                         tabIndex={isMenuDisplay ? 0 : -1}
                         className={
                             isAboutPage
@@ -132,9 +119,7 @@ const Menu = () => {
                         }
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
-                        onClick={() =>
-                            handleMenuClick("about", "About")
-                        }
+                        onClick={() => handleMenuClick("about", "About")}
                     >
                         ABOUT
                     </Link>
@@ -144,9 +129,7 @@ const Menu = () => {
                     <Link
                         href="/works"
                         id="works"
-                        aria-current={
-                            isWorksPage ? "page" : undefined
-                        }
+                        aria-current={isWorksPage ? "page" : undefined}
                         tabIndex={isMenuDisplay ? 0 : -1}
                         className={
                             isWorksPage
@@ -155,9 +138,7 @@ const Menu = () => {
                         }
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
-                        onClick={() =>
-                            handleMenuClick("works", "Works")
-                        }
+                        onClick={() => handleMenuClick("works", "Works")}
                     >
                         WORKS
                     </Link>

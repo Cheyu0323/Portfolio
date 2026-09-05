@@ -3,37 +3,56 @@ import { useEffect, type ReactNode } from "react";
 import Link from "next/link";
 import useCursorStore from "@/store/cursorStore";
 import usePageStore from "@/store/pageStore";
+import {
+    trackProjectExternalClick,
+    trackProjectNavigation,
+} from "@/lib/analytics";
+
 type WorkVisibilityProps = { children: ReactNode };
 type WorkLinkProps = {
     href: string;
     children: ReactNode;
-    eventLabel: string;
     className?: string;
     external?: boolean;
     ariaLabel?: string;
+
+    projectName?: string;
+    projectSlug: string;
+
+    direction?: "prev" | "next" | "index";
 };
 export const WorkLink = ({
     href,
     children,
-    eventLabel,
     className,
     external = false,
     ariaLabel,
+    projectName,
+    projectSlug,
+    direction,
 }: WorkLinkProps) => {
     const handleIsHover = useCursorStore().handleIsHover;
+
     const handleMouseEnter = () => {
         handleIsHover(true);
     };
+
     const handleMouseLeave = () => {
         handleIsHover(false);
     };
+
     const handleClick = () => {
-        window.gtag?.("event", "click", {
-            category: external ? "專案項目_跳轉" : "專案項目",
-            label: eventLabel,
-        });
+        if (external && projectName) {
+            trackProjectExternalClick(projectName, projectSlug, href);
+        }
+
+        if (!external && direction) {
+            trackProjectNavigation(direction, projectSlug, href);
+        }
+
         handleMouseLeave();
     };
+
     return (
         <Link
             href={href}

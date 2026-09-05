@@ -59,7 +59,8 @@ const Work = ({ params }: WorkPageProps) => {
                     <WorkLink
                         href={work.projectUrl}
                         external
-                        eventLabel={work.title}
+                        projectName={work.title}
+                        projectSlug={work.slug}
                         ariaLabel={`前往 ${work.title} 專案網站`}
                         className="ml-auto flex items-center justify-center gap-x-1 p-2 border hover:border-black duration-700 rounded bg-[#303030] hover:bg-white text-white hover:text-black"
                     >
@@ -130,7 +131,8 @@ const Work = ({ params }: WorkPageProps) => {
                 {prevWork ? (
                     <WorkLink
                         href={`/works/${prevWork.slug}`}
-                        eventLabel="上一頁"
+                        projectSlug={work.slug}
+                        direction="prev"
                     >
                         PREV
                     </WorkLink>
@@ -142,13 +144,18 @@ const Work = ({ params }: WorkPageProps) => {
                         PREV
                     </span>
                 )}
-                <WorkLink href="/works" eventLabel="主頁">
+                <WorkLink
+                    href="/works"
+                    projectSlug={work.slug}
+                    direction="index"
+                >
                     INDEX
                 </WorkLink>
                 {nextWork ? (
                     <WorkLink
                         href={`/works/${nextWork.slug}`}
-                        eventLabel="下一頁"
+                        projectSlug={work.slug}
+                        direction="next"
                     >
                         NEXT
                     </WorkLink>

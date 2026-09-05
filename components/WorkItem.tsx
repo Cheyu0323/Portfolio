@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import useCursorStore from "@/store/cursorStore";
+import { trackProjectClick, trackProjectExternalClick } from "@/lib/analytics";
+
 type WorkItemProps = {
     id: number;
     slug: string;
@@ -22,14 +24,14 @@ const WorkItem = ({ slug, title, projectUrl, images }: WorkItemProps) => {
         handleIsHover(false);
     };
     const handleProjectClick = () => {
-        window.gtag?.("event", "click", { category: "專案項目", label: title });
+        trackProjectClick(title, slug);
+
         handleMouseLeave();
     };
     const handleExternalClick = () => {
-        window.gtag?.("event", "click", {
-            category: "專案項目_跳轉",
-            label: title,
-        });
+        if (projectUrl) {
+            trackProjectExternalClick(title, slug, projectUrl);
+        }
         handleMouseLeave();
     };
     const workUrl = `/works/${slug}`;

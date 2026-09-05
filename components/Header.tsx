@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 
 import useCursorStore from "@/store/cursorStore";
 import usePageStore from "@/store/pageStore";
+import { trackMenuOpen } from "@/lib/analytics";
 
 const HamburgerMenu = () => {
     const { isMenuDisplay, handleIsMenuDisplay } = usePageStore();
@@ -27,10 +28,7 @@ const HamburgerMenu = () => {
         handleIsMenuDisplay(nextMenuDisplay);
 
         if (nextMenuDisplay) {
-            window.gtag?.("event", "click", {
-                category: "清單",
-                label: "清單",
-            });
+            trackMenuOpen();
         }
 
         handleMouseLeave();
@@ -53,7 +51,7 @@ const HamburgerMenu = () => {
                             opacity: 0,
                             duration: 0,
                         },
-                        0,
+                        0
                     )
                     .to(line3, { y: -7, duration: 0.5 }, 0)
                     .to(line3, { "--opacity": 0, duration: 0 }, 0)
@@ -73,7 +71,7 @@ const HamburgerMenu = () => {
                         y: 0,
                         duration: 0.5,
                     },
-                    0.5,
+                    0.5
                 )
                 .to(
                     line2,
@@ -82,7 +80,7 @@ const HamburgerMenu = () => {
                         opacity: 1,
                         duration: 0,
                     },
-                    0.5,
+                    0.5
                 )
                 .to(
                     line3,
@@ -91,13 +89,13 @@ const HamburgerMenu = () => {
                         y: 0,
                         duration: 0.5,
                     },
-                    0.5,
+                    0.5
                 );
         },
         {
             dependencies: [isMenuDisplay],
             scope: menuIconRef,
-        },
+        }
     );
 
     return (
@@ -135,9 +133,7 @@ const HamburgerMenu = () => {
 const Header = () => {
     return (
         <header className="relative z-20 inset-x-0 top-0 py-8 flex items-center justify-between w-11/12 max-w-7xl m-auto">
-            <div className="font-thin tracking-[10px] font-sans">
-                CHEYU
-            </div>
+            <div className="font-thin tracking-[10px] font-sans">CHEYU</div>
 
             <HamburgerMenu />
         </header>
