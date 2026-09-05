@@ -16,11 +16,11 @@ export const metadata: Metadata = {
     metadataBase: new URL("https://cheyu-portfolio.vercel.app"),
     icons: { icon: "/favicon.ico" },
     title: {
-        default: "張哲瑜 Cheyu｜副資料工程師・前端工程師作品集",
+        default: "張哲瑜 Cheyu｜前端工程師作品集",
         template: "%s｜張哲瑜 Cheyu",
     },
     description:
-        "張哲瑜（Cheyu），現任鼎漢國際工程顧問股份有限公司副資料工程師，具備 React、Next.js、WebGL、Python、Flask、API 開發與資料庫相關開發經驗。",
+        "張哲瑜（Cheyu），現任鼎漢國際工程顧問股份有限公司副資料分析師，具備 React、Next.js、WebGL、Python、Flask、API 開發與資料庫相關開發經驗。",
     authors: [{ name: "張哲瑜" }],
     creator: "張哲瑜",
     alternates: { canonical: "/" },
@@ -30,13 +30,13 @@ export const metadata: Metadata = {
         locale: "zh_TW",
         url: "/",
         siteName: "張哲瑜 Cheyu Portfolio",
-        title: "張哲瑜 Cheyu｜副資料工程師・前端工程師作品集",
+        title: "張哲瑜 Cheyu｜前端工程師作品集",
         description:
             "張哲瑜（Cheyu）的個人作品集，包含前端開發、WebGL、Python、Flask、資料庫與系統整合相關經驗。",
     },
     twitter: {
         card: "summary_large_image",
-        title: "張哲瑜 Cheyu｜副資料工程師・前端工程師作品集",
+        title: "張哲瑜 Cheyu｜前端工程師作品集",
         description:
             "張哲瑜（Cheyu）的個人作品集，包含前端開發、WebGL、Python、Flask、資料庫與系統整合相關經驗。",
     },

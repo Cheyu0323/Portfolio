@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import type {
+    ReactNode,
+} from "react";
 
 import usePageStore from "@/store/pageStore";
 
@@ -8,28 +10,31 @@ type AboutVisibilityProps = {
     children: ReactNode;
 };
 
-const AboutVisibility = ({ children }: AboutVisibilityProps) => {
-    const {
-        isMenuDisplay,
-        currentClick,
-        handelSetCurrentClick,
-    } = usePageStore();
-
-    useEffect(() => {
-        handelSetCurrentClick("about");
-    }, [handelSetCurrentClick]);
-
-    const isVisible =
-        !isMenuDisplay && currentClick === "about";
+const AboutVisibility = ({
+    children,
+}: AboutVisibilityProps) => {
+    const { isMenuDisplay } =
+        usePageStore();
 
     return (
         <main
-            aria-hidden={!isVisible}
-            className={`h-full z-20 relative overflow-scroll transition-opacity duration-300 ${
-                isVisible
-                    ? "opacity-100"
-                    : "opacity-0 pointer-events-none"
-            }`}
+            aria-hidden={
+                isMenuDisplay
+            }
+            className={`
+                h-full
+                z-20
+                relative
+                overflow-scroll
+                transition-opacity
+                duration-300
+
+                ${
+                    isMenuDisplay
+                        ? "opacity-0 pointer-events-none"
+                        : "opacity-100"
+                }
+            `}
         >
             {children}
         </main>

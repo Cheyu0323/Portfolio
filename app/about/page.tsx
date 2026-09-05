@@ -3,9 +3,9 @@ import ScrollDown from "@/components/ScrollDown";
 import AboutVisibility from "./AboutVisibility";
 
 export const metadata: Metadata = {
-    title: "關於張哲瑜｜副資料工程師・前端工程師作品集",
+    title: "關於張哲瑜｜前端工程師作品集",
     description:
-        "張哲瑜（Cheyu），現任鼎漢國際工程顧問股份有限公司副資料工程師，具備 React、Next.js、WebGL、API 開發、資料庫規劃與資料排程自動化等系統開發經驗。",
+        "張哲瑜（Cheyu），現任鼎漢國際工程顧問股份有限公司副資料分析師，具備 React、Next.js、WebGL、API 開發、資料庫規劃與資料排程自動化等系統開發經驗。",
     alternates: {
         canonical: "/about",
     },
@@ -25,10 +25,10 @@ const profileJsonLd = {
 
         url: "https://cheyu-portfolio.vercel.app/about",
 
-        jobTitle: "副資料工程師",
+        jobTitle: "副資料分析師",
 
         description:
-            "張哲瑜（Cheyu），現任鼎漢國際工程顧問股份有限公司副資料工程師，具備前端開發、API 開發、資料庫規劃、資料排程自動化與系統整合經驗。",
+            "張哲瑜（Cheyu），現任鼎漢國際工程顧問股份有限公司副資料分析師，具備前端開發、API 開發、資料庫規劃、資料排程自動化與系統整合經驗。",
 
         worksFor: {
             "@type": "Organization",
@@ -116,7 +116,7 @@ const About = () => {
 
                     <p className="font-normal tracking-[0.07em] leading-9 md:leading-10 text-[16px] md:text-[17px] opacity-90">
                         畢業於國立臺中科技大學資訊管理系，目前任職於
-                        鼎漢國際工程顧問股份有限公司，擔任副資料工程師。
+                        鼎漢國際工程顧問股份有限公司，擔任副資料分析師。
                         過去具備前端網頁、互動網頁與 Unity 遊戲引擎開發經驗，
                         持續透過實際專案累積 React、Next.js、WebGL
                         與系統整合相關技術經驗。
@@ -135,7 +135,7 @@ const About = () => {
                         <article className="flex flex-col gap-y-1">
                             <div className="flex flex-col md:flex-row md:items-baseline md:gap-x-5">
                                 <h3 className="font-bold text-[19px] md:text-xl tracking-[0.05em]">
-                                    副資料工程師
+                                    副資料分析師
                                 </h3>
 
                                 <div className="font-light text-[11px] tracking-[0.12em] opacity-65 mt-1 md:mt-0">

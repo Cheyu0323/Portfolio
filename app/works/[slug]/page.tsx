@@ -96,14 +96,14 @@ const Work = ({ params }: WorkPageProps) => {
             </ul>
             <div className="mt-3 w-full flex flex-col gap-y-3 max-w-5xl m-auto">
                 {work.images.desktop.map((image, index) => (
-                    <div key={image.src} className="shadow-md">
+                    <div key={image.src} className="shadow-md overflow-hidden">
                         <img
                             src={image.src}
                             alt={image.alt}
-                            sizes="100vw"
                             loading={index === 0 ? "eager" : "lazy"}
-                            decoding="async"
-                            className="w-full h-auto"
+                            decoding={index === 0 ? "sync" : "async"}
+                            fetchPriority={index === 0 ? "high" : "auto"}
+                            className="block w-full h-auto"
                         />
                     </div>
                 ))}
