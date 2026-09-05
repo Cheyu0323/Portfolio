@@ -1,6 +1,6 @@
 "use client";
 
-import { type ThreeEvent, useFrame, useLoader } from "@react-three/fiber";
+import { type ThreeEvent, useFrame } from "@react-three/fiber";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
@@ -50,7 +50,7 @@ const createDodecahedronPlanes = (): FacePlane[] => {
         const constant = normal.dot(a);
 
         const exists = planes.some(
-            (plane) => plane.normal.dot(normal) > 0.9999
+            (plane) => plane.normal.dot(normal) > 0.9999,
         );
 
         if (!exists) {
@@ -125,7 +125,7 @@ const createMorphGeometry = () => {
 
     geometry.setAttribute(
         "position",
-        new THREE.Float32BufferAttribute(facetedPositions, 3)
+        new THREE.Float32BufferAttribute(facetedPositions, 3),
     );
 
     geometry.morphAttributes.position = [
@@ -152,59 +152,42 @@ const SphereModal = () => {
         pathname === "/"
             ? "home"
             : pathname.startsWith("/works")
-            ? "works"
-            : "about";
+              ? "works"
+              : "about";
 
     const sphereMode: SphereMode = isMenuDisplay
         ? "menu"
         : routeSection === "home"
-        ? "home"
-        : "background";
+          ? "home"
+          : "background";
 
     const initialIsHomeRef = useRef(pathname === "/");
-
     const initialMorphRef = useRef(initialIsHomeRef.current ? 0 : 1);
-
     const initialScaleRef = useRef(initialIsHomeRef.current ? 1.5 : 5);
-
     const initialSolidOpacityRef = useRef(initialIsHomeRef.current ? 1 : 0);
-
     const initialWireOpacityRef = useRef(initialIsHomeRef.current ? 0 : 0.2);
-
     const groupRef = useRef<THREE.Group | null>(null);
-
     const solidMeshRef = useRef<THREE.Mesh | null>(null);
-
     const wireMeshRef = useRef<THREE.Mesh | null>(null);
-
     const solidMaterialRef = useRef<THREE.MeshPhysicalMaterial | null>(null);
-
     const wireMaterialRef = useRef<THREE.MeshBasicMaterial | null>(null);
-
-    const colorMap = useLoader(THREE.TextureLoader, "/texture.webp");
+    const textureRef = useRef<THREE.Texture | null>(null);
 
     const morphState = useRef({
         value: initialMorphRef.current,
     });
-
     const rotationVelocity = useRef({
         x: 0,
         y: 0,
     });
-
     const previousPointer = useRef({
         x: 0,
         y: 0,
     });
-
     const isPointerOver = useRef(false);
-
     const isTransitioning = useRef(false);
-
     const previousSphereModeRef = useRef<SphereMode>(sphereMode);
-
     const isInteractive = routeSection === "home" && !isMenuDisplay;
-
     const morphGeometry = useMemo(() => createMorphGeometry(), []);
 
     const handleSolidMeshRef = useCallback((mesh: THREE.Mesh | null) => {
@@ -224,16 +207,44 @@ const SphereModal = () => {
     }, []);
 
     useEffect(() => {
-        colorMap.colorSpace = THREE.SRGBColorSpace;
+        const loader = new THREE.TextureLoader();
 
-        colorMap.wrapS = THREE.RepeatWrapping;
+        let isDisposed = false;
 
-        colorMap.wrapT = THREE.ClampToEdgeWrapping;
+        loader.load("/texture.webp", (texture) => {
+            if (isDisposed) {
+                texture.dispose();
+                return;
+            }
 
-        colorMap.anisotropy = 8;
+            texture.colorSpace = THREE.SRGBColorSpace;
 
-        colorMap.needsUpdate = true;
-    }, [colorMap]);
+            texture.wrapS = THREE.RepeatWrapping;
+
+            texture.wrapT = THREE.ClampToEdgeWrapping;
+
+            texture.anisotropy = 8;
+            texture.needsUpdate = true;
+
+            textureRef.current = texture;
+
+            const material = solidMaterialRef.current;
+
+            if (material) {
+                material.map = texture;
+
+                material.needsUpdate = true;
+            }
+        });
+
+        return () => {
+            isDisposed = true;
+
+            textureRef.current?.dispose();
+
+            textureRef.current = null;
+        };
+    }, []);
 
     useEffect(() => {
         return () => {
@@ -317,7 +328,7 @@ const SphereModal = () => {
                 duration,
                 ease: "sine.inOut",
             },
-            0
+            0,
         );
 
         if (solidOpacity === 0) {
@@ -328,7 +339,7 @@ const SphereModal = () => {
                     duration: duration * 0.42,
                     ease: "sine.inOut",
                 },
-                duration * 0.32
+                duration * 0.32,
             );
         } else {
             timeline.to(
@@ -338,7 +349,7 @@ const SphereModal = () => {
                     duration: duration * 0.55,
                     ease: "sine.inOut",
                 },
-                duration * 0.12
+                duration * 0.12,
             );
         }
 
@@ -353,7 +364,7 @@ const SphereModal = () => {
                         duration: duration * 0.72,
                         ease: "sine.inOut",
                     },
-                    0
+                    0,
                 )
                 .to(
                     group.scale,
@@ -364,7 +375,7 @@ const SphereModal = () => {
                         duration: duration * 0.28,
                         ease: "power2.out",
                     },
-                    ">"
+                    ">",
                 );
 
             timeline.to(
@@ -374,7 +385,7 @@ const SphereModal = () => {
                     duration: duration * 0.45,
                     ease: "sine.inOut",
                 },
-                duration * 0.25
+                duration * 0.25,
             );
 
             return;
@@ -390,7 +401,7 @@ const SphereModal = () => {
                     duration: duration * 0.62,
                     ease: "sine.inOut",
                 },
-                0
+                0,
             );
 
             timeline.to(
@@ -400,7 +411,7 @@ const SphereModal = () => {
                     duration: duration * 0.45,
                     ease: "sine.inOut",
                 },
-                duration * 0.12
+                duration * 0.12,
             );
 
             timeline.to(
@@ -412,7 +423,7 @@ const SphereModal = () => {
                     duration: duration * 0.38,
                     ease: "sine.inOut",
                 },
-                ">"
+                ">",
             );
 
             timeline.to(
@@ -422,7 +433,7 @@ const SphereModal = () => {
                     duration: duration * 0.38,
                     ease: "sine.inOut",
                 },
-                "<"
+                "<",
             );
 
             return;
@@ -437,7 +448,7 @@ const SphereModal = () => {
                 duration,
                 ease: "sine.inOut",
             },
-            0
+            0,
         );
 
         timeline.to(
@@ -447,7 +458,7 @@ const SphereModal = () => {
                 duration: duration * 0.55,
                 ease: "sine.inOut",
             },
-            duration * 0.1
+            duration * 0.1,
         );
     };
 
@@ -585,13 +596,13 @@ const SphereModal = () => {
         rotationVelocity.current.y = THREE.MathUtils.clamp(
             rotationVelocity.current.y,
             -0.035,
-            0.035
+            0.035,
         );
 
         rotationVelocity.current.x = THREE.MathUtils.clamp(
             rotationVelocity.current.x,
             -0.025,
-            0.025
+            0.025,
         );
 
         previousPointer.current = {
@@ -640,7 +651,6 @@ const SphereModal = () => {
             >
                 <meshPhysicalMaterial
                     ref={solidMaterialRef}
-                    map={colorMap}
                     color="#ffffff"
                     metalness={0.5}
                     roughness={0.7}
