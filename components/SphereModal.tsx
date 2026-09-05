@@ -181,7 +181,7 @@ const SphereModal = () => {
 
     const wireMaterialRef = useRef<THREE.MeshBasicMaterial | null>(null);
 
-    const colorMap = useLoader(THREE.TextureLoader, "/texture.jpg");
+    const colorMap = useLoader(THREE.TextureLoader, "/texture.webp");
 
     const morphState = useRef({
         value: initialMorphRef.current,
