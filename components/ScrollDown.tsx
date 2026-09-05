@@ -3,7 +3,7 @@ import React from "react";
 
 const ScrollDown: React.FC = () => {
     return (
-        <div className="relative text-xs font-medium tracking-wider flex items-center gap-x-3 mt-20">
+        <div className="relative text-xs font-medium tracking-wider flex items-center gap-x-3 mt-16">
             <div className="h-full w-[1px] bg-font_dark/50 relative overflow-hidden">
                 <div className="animate-lineDwon absolute h-full w-full bg-font_dark"></div>
             </div>

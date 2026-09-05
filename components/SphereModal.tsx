@@ -1,307 +1,571 @@
 "use client";
-import { ThreeEvent, useFrame } from "@react-three/fiber";
-import React, { useEffect, useRef, useState } from "react";
-import { Mesh, Texture } from "three";
-import gsap from "gsap";
-import usePageStore from "@/store/pageStore";
+
+import { ThreeEvent, useFrame, useLoader } from "@react-three/fiber";
+import { useEffect, useMemo, useRef } from "react";
 import { usePathname } from "next/navigation";
-import useCursorStore from "@/store/cursorStore";
+import gsap from "gsap";
 import * as THREE from "three";
 
-const loader = new THREE.TextureLoader();
+import usePageStore from "@/store/pageStore";
+import useCursorStore from "@/store/cursorStore";
+import { trackMenuOpen } from "@/lib/analytics";
+
+type FacePlane = {
+    normal: THREE.Vector3;
+    constant: number;
+};
+
+const createDodecahedronPlanes = (): FacePlane[] => {
+    const geometry = new THREE.DodecahedronGeometry(1, 0);
+
+    const position = geometry.getAttribute("position") as THREE.BufferAttribute;
+
+    const planes: FacePlane[] = [];
+
+    const a = new THREE.Vector3();
+    const b = new THREE.Vector3();
+    const c = new THREE.Vector3();
+
+    const ab = new THREE.Vector3();
+    const ac = new THREE.Vector3();
+
+    for (let i = 0; i < position.count; i += 3) {
+        a.fromBufferAttribute(position, i);
+        b.fromBufferAttribute(position, i + 1);
+        c.fromBufferAttribute(position, i + 2);
+
+        ab.subVectors(b, a);
+        ac.subVectors(c, a);
+
+        const normal = new THREE.Vector3().crossVectors(ab, ac).normalize();
+
+        if (normal.dot(a) < 0) {
+            normal.negate();
+        }
+
+        const constant = normal.dot(a);
+
+        const exists = planes.some(
+            (plane) => plane.normal.dot(normal) > 0.9999
+        );
+
+        if (!exists) {
+            planes.push({
+                normal: normal.clone(),
+                constant,
+            });
+        }
+    }
+
+    geometry.dispose();
+
+    return planes;
+};
+
+const createMorphGeometry = () => {
+    let geometry: THREE.BufferGeometry = new THREE.DodecahedronGeometry(1, 4);
+
+    if (geometry.index) {
+        const nonIndexed = geometry.toNonIndexed();
+
+        geometry.dispose();
+
+        geometry = nonIndexed;
+    }
+
+    const position = geometry.getAttribute("position") as THREE.BufferAttribute;
+
+    const planes = createDodecahedronPlanes();
+
+    const facetedPositions = new Float32Array(position.count * 3);
+
+    const spherePositions = new Float32Array(position.count * 3);
+
+    const direction = new THREE.Vector3();
+
+    const facetedPosition = new THREE.Vector3();
+
+    for (let i = 0; i < position.count; i++) {
+        direction.fromBufferAttribute(position, i).normalize();
+
+        spherePositions[i * 3] = direction.x;
+        spherePositions[i * 3 + 1] = direction.y;
+        spherePositions[i * 3 + 2] = direction.z;
+
+        let distance = Infinity;
+
+        for (const plane of planes) {
+            const denominator = plane.normal.dot(direction);
+
+            if (denominator <= 0.000001) {
+                continue;
+            }
+
+            const intersection = plane.constant / denominator;
+
+            if (intersection < distance) {
+                distance = intersection;
+            }
+        }
+
+        facetedPosition.copy(direction).multiplyScalar(distance);
+        facetedPositions[i * 3] = facetedPosition.x;
+        facetedPositions[i * 3 + 1] = facetedPosition.y;
+        facetedPositions[i * 3 + 2] = facetedPosition.z;
+    }
+
+    geometry.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(facetedPositions, 3)
+    );
+
+    geometry.morphAttributes.position = [
+        new THREE.Float32BufferAttribute(spherePositions, 3),
+    ];
+
+    geometry.morphTargetsRelative = false;
+
+    geometry.computeVertexNormals();
+    geometry.computeBoundingBox();
+    geometry.computeBoundingSphere();
+
+    return geometry;
+};
 
 const SphereModal = () => {
     const pathname = usePathname();
+
     const { isMenuDisplay, currentClick, handleIsMenuDisplay } = usePageStore();
-    const isHover = useCursorStore().handleIsHover;
-    const dodecahedronMeshRef = useRef<Mesh>(null!);
-    const sphereMeshRef = useRef<Mesh>(null!);
-    const [colorMap, setColorMap] = useState<Texture>(null!);
+    const handleIsHover = useCursorStore().handleIsHover;
+
+    const groupRef = useRef<THREE.Group>(null);
+    const solidMeshRef = useRef<THREE.Mesh>(null);
+    const wireMeshRef = useRef<THREE.Mesh>(null);
+    const solidMaterialRef = useRef<THREE.MeshPhysicalMaterial>(null);
+    const wireMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
+
+    const colorMap = useLoader(THREE.TextureLoader, "/texture.jpg");
+
+    const morphState = useRef({
+        value: 0,
+    });
+
+    const rotationVelocity = useRef({
+        x: 0,
+        y: 0,
+    });
+
+    const previousPointer = useRef({
+        x: 0,
+        y: 0,
+    });
+
+    const isPointerOver = useRef(false);
+
+    const isTransitioning = useRef(false);
+
+    const isInteractive = currentClick === "/" && !isMenuDisplay;
+
+    const morphGeometry = useMemo(() => createMorphGeometry(), []);
+
     useEffect(() => {
-        if (colorMap != null) return;
-        loader.load("texture.jpg", (texture) => setColorMap(texture));
+        colorMap.colorSpace = THREE.SRGBColorSpace;
+        colorMap.wrapS = THREE.RepeatWrapping;
+        colorMap.wrapT = THREE.ClampToEdgeWrapping;
+        colorMap.anisotropy = 8;
+        colorMap.needsUpdate = true;
     }, [colorMap]);
 
-    const transformSphere = () => {
-        if (dodecahedronMeshRef.current == null) return;
-        if (sphereMeshRef.current == null) return;
-        return gsap.context(() => {
-            gsap.timeline({
-                defaults: {
-                    ease: "none",
+    useEffect(() => {
+        return () => {
+            morphGeometry.dispose();
+        };
+    }, [morphGeometry]);
+
+    useEffect(() => {
+        if (isInteractive) {
+            return;
+        }
+
+        isPointerOver.current = false;
+        rotationVelocity.current.x = 0;
+        rotationVelocity.current.y = 0;
+
+        handleIsHover(false);
+    }, [isInteractive, handleIsHover]);
+
+    const animateSphere = ({
+        morph,
+        scale,
+        scaleOvershoot,
+        scaleUndershoot,
+        solidOpacity,
+        wireOpacity,
+        duration = 0.95,
+    }: {
+        morph: number;
+        scale: number;
+        scaleOvershoot?: number;
+        scaleUndershoot?: number;
+        solidOpacity: number;
+        wireOpacity: number;
+        duration?: number;
+    }) => {
+        const group = groupRef.current;
+
+        const solidMaterial = solidMaterialRef.current;
+
+        const wireMaterial = wireMaterialRef.current;
+
+        if (!group || !solidMaterial || !wireMaterial) {
+            return;
+        }
+
+        isTransitioning.current = true;
+        rotationVelocity.current.x = 0;
+        rotationVelocity.current.y = 0;
+
+        gsap.killTweensOf(morphState.current);
+        gsap.killTweensOf(group.scale);
+        gsap.killTweensOf(solidMaterial);
+        gsap.killTweensOf(wireMaterial);
+
+        const currentScale = group.scale.x;
+        const isShrinking = currentScale > scale;
+
+        const timeline = gsap.timeline({
+            defaults: {
+                overwrite: "auto",
+            },
+
+            onComplete: () => {
+                isTransitioning.current = false;
+            },
+        });
+
+        timeline.to(
+            morphState.current,
+            {
+                value: morph,
+                duration,
+                ease: "sine.inOut",
+            },
+            0
+        );
+
+        if (solidOpacity === 0) {
+            timeline.to(
+                solidMaterial,
+                {
+                    opacity: 0,
+                    duration: duration * 0.42,
+                    ease: "sine.inOut",
                 },
-            })
+                duration * 0.32
+            );
+        } else {
+            timeline.to(
+                solidMaterial,
+                {
+                    opacity: solidOpacity,
+                    duration: duration * 0.55,
+                    ease: "sine.inOut",
+                },
+                duration * 0.12
+            );
+        }
+
+        if (isShrinking && scaleUndershoot) {
+            timeline
                 .to(
-                    dodecahedronMeshRef.current.material,
+                    group.scale,
                     {
-                        duration: 0.3,
-                        opacity: 0,
-                        visible: false,
+                        x: scaleUndershoot,
+                        y: scaleUndershoot,
+                        z: scaleUndershoot,
+                        duration: duration * 0.72,
+                        ease: "sine.inOut",
                     },
                     0
                 )
                 .to(
-                    dodecahedronMeshRef.current.scale,
+                    group.scale,
                     {
-                        duration: 0.7,
-                        x: 0,
-                        y: 0,
-                        z: 0,
-                    },
-                    0
-                )
-                .to(
-                    sphereMeshRef.current.material,
-                    {
-                        duration: 0.3,
-                        opacity: 0.8,
-                        visible: true,
-                    },
-                    0
-                )
-                .to(
-                    sphereMeshRef.current.scale,
-                    {
-                        duration: 0.6,
-                        x: 2,
-                        y: 2,
-                        z: 2,
-                    },
-                    0.3
-                )
-                .to(
-                    sphereMeshRef.current.scale,
-                    {
-                        duration: 0.4,
-                        x: 1.8,
-                        y: 1.8,
-                        z: 1.8,
+                        x: scale,
+                        y: scale,
+                        z: scale,
+                        duration: duration * 0.28,
+                        ease: "power2.out",
                     },
                     ">"
                 );
+
+            timeline.to(
+                wireMaterial,
+                {
+                    opacity: wireOpacity,
+                    duration: duration * 0.45,
+                    ease: "sine.inOut",
+                },
+                duration * 0.25
+            );
+            return;
+        }
+
+        if (scaleOvershoot) {
+            timeline.to(
+                group.scale,
+                {
+                    x: scaleOvershoot,
+                    y: scaleOvershoot,
+                    z: scaleOvershoot,
+                    duration: duration * 0.62,
+                    ease: "sine.inOut",
+                },
+                0
+            );
+
+            timeline.to(
+                wireMaterial,
+                {
+                    opacity: wireOpacity * 0.2,
+                    duration: duration * 0.45,
+                    ease: "sine.inOut",
+                },
+                duration * 0.12
+            );
+
+            timeline.to(
+                group.scale,
+                {
+                    x: scale,
+                    y: scale,
+                    z: scale,
+                    duration: duration * 0.38,
+                    ease: "sine.inOut",
+                },
+                ">"
+            );
+
+            timeline.to(
+                wireMaterial,
+                {
+                    opacity: wireOpacity,
+                    duration: duration * 0.38,
+                    ease: "sine.inOut",
+                },
+                "<"
+            );
+
+            return;
+        }
+
+        timeline.to(
+            group.scale,
+            {
+                x: scale,
+                y: scale,
+                z: scale,
+                duration,
+                ease: "sine.inOut",
+            },
+            0
+        );
+
+        timeline.to(
+            wireMaterial,
+            {
+                opacity: wireOpacity,
+                duration: duration * 0.55,
+                ease: "sine.inOut",
+            },
+            duration * 0.1
+        );
+    };
+
+    const showHomeObject = () => {
+        animateSphere({
+            morph: 0,
+            scale: 1.5,
+            scaleUndershoot: 1.35,
+            solidOpacity: 1,
+            wireOpacity: 0,
+            duration: 0.9,
         });
     };
 
-    const revertSphere = () => {
-        if (dodecahedronMeshRef.current == null) return;
-        if (sphereMeshRef.current == null) return;
-        return gsap.context(() => {
-            gsap.timeline({
-                defaults: {
-                    ease: "none",
-                },
-            })
-                .to(
-                    sphereMeshRef.current.material,
-                    {
-                        duration: 0.3,
-                        opacity: 0,
-                        visible: false,
-                    },
-                    0
-                )
-                .to(
-                    sphereMeshRef.current.scale,
-                    {
-                        duration: 0.7,
-                        x: 0,
-                        y: 0,
-                        z: 0,
-                    },
-                    0
-                )
-                .to(
-                    dodecahedronMeshRef.current.material,
-                    {
-                        duration: 0.4,
-                        opacity: 1,
-                        visible: true,
-                    },
-                    0.3
-                )
-                .to(
-                    dodecahedronMeshRef.current.scale,
-                    {
-                        duration: 0.4,
-                        x: 1.5,
-                        y: 1.5,
-                        z: 1.5,
-                    },
-                    ">"
-                );
+    const showMenuSphere = () => {
+        animateSphere({
+            morph: 1,
+            scale: 1.8,
+            scaleOvershoot: 2,
+            scaleUndershoot: 1.65,
+            solidOpacity: 0,
+            wireOpacity: 0.8,
+            duration: 0.95,
         });
     };
 
-    const scaleSphere = () => {
-        if (dodecahedronMeshRef.current == null) return;
-        if (sphereMeshRef.current == null) return;
-        return gsap.context(() => {
-            gsap.timeline({
-                defaults: {
-                    ease: "none",
-                },
-            })
-                .to(
-                    dodecahedronMeshRef.current.scale,
-                    {
-                        duration: 0,
-                        x: 0,
-                        y: 0,
-                        z: 0,
-                    },
-                    0
-                )
-                .to(
-                    sphereMeshRef.current.material,
-                    {
-                        duration: 0.4,
-                        opacity: 0.05,
-                        visible: true,
-                    },
-                    0
-                )
-                .to(
-                    sphereMeshRef.current.scale,
-                    {
-                        duration: 0.6,
-                        x: 5.5,
-                        y: 5.5,
-                        z: 5.5,
-                    },
-                    0
-                )
-                .to(
-                    sphereMeshRef.current.scale,
-                    {
-                        duration: 0.3,
-                        x: 5,
-                        y: 5,
-                        z: 5,
-                    },
-                    ">"
-                );
-        });
-    };
-
-    const revertScaleSphere = () => {
-        if (dodecahedronMeshRef.current == null) return;
-        if (sphereMeshRef.current == null) return;
-        return gsap.context(() => {
-            gsap.timeline({
-                defaults: {
-                    ease: "none",
-                },
-            })
-                .to(
-                    dodecahedronMeshRef.current.scale,
-                    {
-                        duration: 0,
-                        x: 0,
-                        y: 0,
-                        z: 0,
-                    },
-                    0
-                )
-                .to(
-                    sphereMeshRef.current.scale,
-                    {
-                        duration: 0.6,
-                        x: 1.5,
-                        y: 1.5,
-                        z: 1.5,
-                    },
-                    0
-                )
-                .to(
-                    sphereMeshRef.current.scale,
-                    {
-                        duration: 0.3,
-                        x: 1.8,
-                        y: 1.8,
-                        z: 1.8,
-                    },
-                    ">"
-                )
-                .to(
-                    sphereMeshRef.current.material,
-                    {
-                        duration: 0.4,
-                        opacity: 0.8,
-                        visible: true,
-                    },
-                    0
-                );
+    const showBackgroundSphere = () => {
+        animateSphere({
+            morph: 1,
+            scale: 5,
+            scaleOvershoot: 5.5,
+            solidOpacity: 0,
+            wireOpacity: 0.2,
+            duration: 0.9,
         });
     };
 
     useEffect(() => {
         if (currentClick === "/") {
             if (isMenuDisplay) {
-                transformSphere();
+                showMenuSphere();
             } else {
-                revertSphere();
+                showHomeObject();
             }
+
             return;
         }
+
         if (isMenuDisplay) {
-            revertScaleSphere();
+            showMenuSphere();
         } else {
-            scaleSphere();
+            showBackgroundSphere();
         }
     }, [isMenuDisplay, currentClick, pathname]);
 
     useFrame(() => {
-        dodecahedronMeshRef.current.rotation.y += 0.004;
-        sphereMeshRef.current.rotation.y += 0.001;
-    }, 0);
+        const group = groupRef.current;
+        const solid = solidMeshRef.current;
+        const wire = wireMeshRef.current;
+        if (!group || !solid || !wire) {
+            return;
+        }
+
+        const solidInfluences = solid.morphTargetInfluences;
+        const wireInfluences = wire.morphTargetInfluences;
+        if (solidInfluences) {
+            solidInfluences[0] = morphState.current.value;
+        }
+        if (wireInfluences) {
+            wireInfluences[0] = morphState.current.value;
+        }
+
+        if (isTransitioning.current) {
+            return;
+        }
+
+        group.rotation.y += 0.004;
+
+        if (isInteractive) {
+            group.rotation.y += rotationVelocity.current.y;
+            group.rotation.x += rotationVelocity.current.x;
+            rotationVelocity.current.x *= 0.94;
+            rotationVelocity.current.y *= 0.94;
+        }
+    });
+
+    const handlePointerOver = (event: ThreeEvent<PointerEvent>) => {
+        if (!isInteractive || isTransitioning.current) {
+            return;
+        }
+
+        isPointerOver.current = true;
+
+        previousPointer.current = {
+            x: event.nativeEvent.clientX,
+            y: event.nativeEvent.clientY,
+        };
+
+        handleIsHover(true);
+    };
 
     const handlePointerMove = (event: ThreeEvent<PointerEvent>) => {
-        gsap.to(dodecahedronMeshRef.current.rotation, {
-            duration: 5,
-            x: dodecahedronMeshRef.current.rotation.x + event.point.x,
-            y: dodecahedronMeshRef.current.rotation.y + event.point.y,
-            z: dodecahedronMeshRef.current.rotation.z + event.point.z,
-        });
+        if (
+            !isInteractive ||
+            !isPointerOver.current ||
+            isTransitioning.current
+        ) {
+            return;
+        }
+
+        const currentX = event.nativeEvent.clientX;
+        const currentY = event.nativeEvent.clientY;
+        const deltaX = currentX - previousPointer.current.x;
+        const deltaY = currentY - previousPointer.current.y;
+        rotationVelocity.current.y += deltaX * 0.0008;
+        rotationVelocity.current.x += deltaY * 0.0005;
+        rotationVelocity.current.y = THREE.MathUtils.clamp(
+            rotationVelocity.current.y,
+            -0.035,
+            0.035
+        );
+
+        rotationVelocity.current.x = THREE.MathUtils.clamp(
+            rotationVelocity.current.x,
+            -0.025,
+            0.025
+        );
+
+        previousPointer.current = {
+            x: currentX,
+            y: currentY,
+        };
     };
-    const handlePointerOver = () => isHover(true);
-    const handlePointerOut = () => isHover(false);
-    const onClick = () => {
+
+    const handlePointerOut = () => {
+        if (!isInteractive) {
+            return;
+        }
+
+        isPointerOver.current = false;
+
+        handleIsHover(false);
+    };
+
+    const handleClick = () => {
+        if (!isInteractive || isTransitioning.current) {
+            return;
+        }
+
+        isPointerOver.current = false;
+
+        rotationVelocity.current.x = 0;
+        rotationVelocity.current.y = 0;
+
+        handleIsHover(false);
         handleIsMenuDisplay(true);
-        window.gtag("event", "click", {
-            category: "模型",
-            label: "清單",
-        });
-        handlePointerOut();
+        trackMenuOpen();
     };
 
     return (
-        <group>
+        <group ref={groupRef} scale={1.5}>
             <mesh
-                scale={1.5}
-                ref={dodecahedronMeshRef}
-                onPointerMove={handlePointerMove}
-                onPointerOver={handlePointerOver}
-                onPointerOut={handlePointerOut}
-                onClick={onClick}
+                ref={solidMeshRef}
+                args={[morphGeometry]}
+                onPointerMove={isInteractive ? handlePointerMove : undefined}
+                onPointerOver={isInteractive ? handlePointerOver : undefined}
+                onPointerOut={isInteractive ? handlePointerOut : undefined}
+                onClick={isInteractive ? handleClick : undefined}
             >
-                <dodecahedronGeometry />
-                {colorMap != null && (
-                    <meshPhysicalMaterial
-                        map={colorMap}
-                        metalness={0.5}
-                        roughness={0.7}
-                        reflectivity={2}
-                        transparent={true}
-                        opacity={1}
-                    />
-                )}
-            </mesh>
-            <mesh ref={sphereMeshRef} scale={0}>
-                <dodecahedronGeometry args={[undefined, 5]} />
                 <meshPhysicalMaterial
+                    ref={solidMaterialRef}
                     map={colorMap}
-                    transparent={true}
-                    opacity={0.2}
+                    color="#ffffff"
+                    metalness={0.5}
+                    roughness={0.7}
+                    reflectivity={2}
+                    transparent
+                    opacity={1}
+                />
+            </mesh>
+
+            <mesh ref={wireMeshRef} args={[morphGeometry]} scale={1.002}>
+                <meshBasicMaterial
+                    ref={wireMaterialRef}
+                    transparent
+                    opacity={0}
                     wireframe
                 />
             </mesh>
